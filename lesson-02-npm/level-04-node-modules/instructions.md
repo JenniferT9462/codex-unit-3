@@ -10,13 +10,14 @@ Built-in NodeJS modules increase productivity by allowing developers to reuse st
 
 ## Complete these tasks
 
-1. Import `cpus`, `totalmem`, `freemem`, `machine`, and `platform` from `node:os`.
+1. In `script.js`, import `cpus`, `totalmem`, `freemem`, `machine`, and `platform` from `node:os`.
 2. Use those functions and save their values in descriptive variables.
 3. Use `console.log` to display the value of each variable.
+4. In the terminal, navigate to this folder and run `script.js`
 
 ## More Information
 
-- `node:os` is a built-in NodeJS module that provides information about the local operating system.
+- `node:os` is a built-in NodeJS module that provides various ways to gain information about the local operating system.
 - [OS Module](https://nodejs.org/api/os.html)
 
 ## Usage Tips
