@@ -17,6 +17,7 @@ The JavaScript Debug Terminal can help you find bugs in NodeJS code.
 5. Use the debugger controls to play the script.
 6. Use `console.log` to display a message.
 7. Let the message explain how to use the JavaScript Debug Terminal to start the debugger.
+8. Run `script.js`
 
 ## More Information
 
@@ -26,6 +27,7 @@ The JavaScript Debug Terminal can help you find bugs in NodeJS code.
 ## Usage Tips
 
 - The default terminal (like Git Bash) may not engage the debugger.
+- To open the JavaScript Debug Terminal, do a web search for `How to open the JavaScript debug terminal in VS code`.
 
 ## Hints
 
