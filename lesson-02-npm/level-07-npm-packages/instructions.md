@@ -1,12 +1,12 @@
-# Node Modules
+# NPM Packages
 
 ## Objective
 
-Learn about external Node modules and how to use them.
+Learn about NPM packages and how to use them.
 
 ## Benefits
 
-Many Node modules (packages) come with instructions how to install and use them.
+Many NPM packages (which are exrernal Node modules) come with instructions how to install and use them.
 
 ## Complete these tasks
 
