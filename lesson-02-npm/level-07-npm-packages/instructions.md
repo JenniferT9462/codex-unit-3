@@ -6,7 +6,7 @@ Learn about NPM packages and how to use them.
 
 ## Benefits
 
-Many NPM packages (which are exrernal Node modules) come with instructions how to install and use them.
+Many NPM packages (which are external Node modules) come with instructions how to install and use them.
 
 ## Complete these tasks
 
