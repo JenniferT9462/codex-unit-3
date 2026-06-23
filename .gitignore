@@ -7,4 +7,6 @@
 !*.min.js
 !.tests
 !.tests/**/*
+!.vscode/
+!.vscode/**/*
 node_modules/
