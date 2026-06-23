@@ -12,7 +12,7 @@ Scaffolding a web project can simplify the development of a similar web project.
 
 1. In the VS Code file list, select this level folder.
 2. Create a folder called `html-css-javascript`.
-3. In `html-css-javascipr`, create the file `index.html`.
+3. In `html-css-javascript`, create the file `index.html`.
 4. In `index.html`, add boilerplate tags and an `h1` tag with `HTML, CSS, JavaScript Template`.
 5. Create `style.css`.
 6. Let `style.css` make a style change to the `h1` tag.
