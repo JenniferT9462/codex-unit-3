@@ -1,0 +1,1 @@
+console.log("In NPM scripts, `npx` can be omitted. In the terminal npx is required. ");

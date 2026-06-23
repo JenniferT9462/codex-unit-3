@@ -31,10 +31,6 @@ In React, local images can be imported as variables and inserted into HTML tags.
 
 ## More Information
 
-- In React, curly braces `{}` embedded in HTML can contain JavaScript code.
-- In this exercise, the curly braces contain JavaScript variables.
-- With React, local images can be imported as variables, then inserted into HTML.
-
 ## Usage Tips
 
 - To import a picture into a React project, use `import`, a variable name, `from`, and the relative image path. Example: `import myPicture from "./assets/myPicture.jpg";`

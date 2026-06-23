@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+  margin: 0%;
+  background-color: blueviolet;
+}
+
+#images2 {
+  border: solid 5px green;
+  border-radius: 20px;
+  width: 50%;
+  margin: auto;
+}
+
