@@ -12,7 +12,7 @@ Knowing the difference between NodeJS and JavaScript will help you understand wh
 
 1. In `script.js`, store a value with `localStorage`.
 2. Use `document.querySelector` to select a `p` tag.
-3. Run the script.
+3. Run the script. Observe the error message.
 
 ## More Information
 
