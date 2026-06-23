@@ -1,0 +1,1 @@
+console.log("The `npx` command can run an installed NodeJS module. - The `npx` command temporarily installs NodeJS modules that aren't listed in `package.json` - Packages should be installed and listed in `package.json` if they are important to the development of a project.")

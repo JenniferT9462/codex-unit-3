@@ -1,0 +1,1 @@
+console.log("`.gitignore` lists files and folders that should not be included in source control. - Ignored files are usually automatically generated or downloaded, so there is no need to track them with source control.")

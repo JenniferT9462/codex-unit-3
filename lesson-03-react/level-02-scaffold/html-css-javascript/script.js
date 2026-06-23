@@ -1,0 +1,1 @@
+console.log("- Scaffolding is creating a folder with the initial files and folders commonly needed to begin developing. - With scaffolding, a copy of the folder can be used as the starting template of a new project instead of starting with an empty folder.")

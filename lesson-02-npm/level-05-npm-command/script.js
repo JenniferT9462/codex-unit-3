@@ -1,0 +1,1 @@
+console.log("Use the `npm init` command to initialize a new project.- External modules are like `node:os` and `node:path` - code that is imported into your project, but not coded by the project. The source code for external modules are outside of the project source code.")

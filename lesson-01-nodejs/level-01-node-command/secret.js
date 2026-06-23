@@ -1,1 +1,1 @@
-export default "This is a secret message."
+export default "You ran JavaScript without a browser!";
