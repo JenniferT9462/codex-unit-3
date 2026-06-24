@@ -31,6 +31,7 @@ Global packages can be installed and accessed from any project.
 
 - Use `npm list --global` to list globally installed packages.
 - Use `npm install --global` and a package name to install a package globally. Example: `npm install --global some-package`
+- If you're getting errors installing with `npm`, try a familiar installation method listed [HERE](https://pnpm.io/installation#using-homebrew).
 
 ## Hints
 
