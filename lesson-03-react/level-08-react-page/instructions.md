@@ -42,3 +42,6 @@ Using your own custom template for a new project is much faster than scaffolding
 ## Hints
 
 - If the `node_modules` folder isn't installed - In the terminal, navigate to the project folder, then run `npm install`. NPM packages for the project will be installed. An internet connection is required to download the packages.
+- [image1 URL](https://science.nasa.gov/wp-content/uploads/2023/09/pia23865-2.jpg)
+- [image2 URL](https://science.nasa.gov/wp-content/uploads/2023/09/stsci-01f3n9k6pr8b5y9cz2qd7asqpt-1.png)
+- [image3 URL](https://science.nasa.gov/wp-content/uploads/2023/09/crab-lg.jpeg)
