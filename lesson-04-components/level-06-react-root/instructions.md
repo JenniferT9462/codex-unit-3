@@ -10,7 +10,7 @@ Discover how the React root transforms a minimal `index.html` file into a websit
 
 ## Complete these tasks
 
-1. In your system's folder explorer or file picker, copy your `react-template` folder into this level folder.
+1. In your system's file explorer or file picker, copy your `react-template` folder into this level folder.
 2. In this level folder, rename `react-template` to `react-root`.
 3. In the terminal, navigate to the `react-root` folder.
 4. Start the Vite server and open a web browser to the URL provided by Vite. You may need to install `node_modules`.
