@@ -28,6 +28,7 @@ You'll get a better understanding of how `try/catch` works.
 ## Usage Tips
 
 - The `catch` statement accepts an error object. Example: `catch(error)`
+- [Debugger controls](https://code.visualstudio.com/docs/debugtest/debugging#_debug-actions)
 
 ## Hints
 
