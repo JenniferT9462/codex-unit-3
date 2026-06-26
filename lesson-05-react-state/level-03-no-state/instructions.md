@@ -10,7 +10,7 @@ Knowing the limitations of stateless variables in React will help you understand
 
 ## Complete these tasks
 
-1. In your system's folder explorer or file picker, copy your `react-template` folder into this level folder. The template should render `Header`, `Main`, and `Footer` components.
+1. In your system's file explorer or file picker, copy your `react-template` folder into this level folder. The template should render `Header`, `Main`, and `Footer` components.
 2. In this level folder, rename `react-template` to `no-state`.
 3. In the terminal, navigate to the `no-state` folder.
 4. Start the Vite server and open the React Debugger browser. You may need to install `node_modules`.

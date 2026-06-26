@@ -10,7 +10,7 @@ Destructuring React props is a commonly used syntax.
 
 ## Complete these tasks
 
-1. In your system's folder explorer or file picker, copy your `react-template` folder into this level folder. The template should render `Header`, `Main`, and `Footer` components.
+1. In your system's file explorer or file picker, copy your `react-template` folder into this level folder. The template should render `Header`, `Main`, and `Footer` components.
 2. In this level folder, rename `react-template` to `destructured-props`.
 3. In the terminal, navigate to the `react-props` folder.
 4. Start the Vite server and open the React Debugger browser. You may need to install `node_modules`.
