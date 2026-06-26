@@ -4,13 +4,13 @@ import Footer from './components/Footer.jsx';
 import './App.css'
 
 function App() {
- 
-
+  // The execution will pause here if your DevTools (Inspect Element) are open
+  debugger;
   return (
     <>
-      <Header/>
-      <Main/>
-      <Footer/>
+      <Header />
+      <Main />
+      <Footer />
     </>
   );
 }
