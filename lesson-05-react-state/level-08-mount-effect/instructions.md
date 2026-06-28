@@ -2,7 +2,7 @@
 
 ## Objective
 
-Affect or change a component during its mount phase.
+Use a stateful variable to track a component during its mount phase.
 
 ## Benefits
 
@@ -34,15 +34,15 @@ Every visible component goes through the mount phase.
 22. The debugger should stop in `componentDidMount`.
 23. Run the code line by line until it gets into code that isn't yours, then press play.
 24. In the `main` tag, add a `p` tag that renders a message.
-25. Let the message explain `useEffect` and how to use it to affect a component during the mount phase. Use your own words. Don't copy/paste.
+25. Let the message explain `useEffect` and how to use it to track a component during the mount phase. Use your own words. Don't copy/paste.
 26. View your message in the browser.
 
 ## More Information
 
 - In programming, an effect (or side effect) is when a function interacts or changes something outside the function.
 - The `useEffect` function takes in a callback function and a list of dependencies (variables to monitor).
-- `useEffect` will call the callback function when dependencies (variables in the list) have changed.
-- An empty array of dependencies will cause `useEffect` to call the callback function during the mount phase.
+- `useEffect` will call the callback function when its dependencies (variables in the list) have changed.
+- An empty array of dependencies will cause `useEffect` to call the callback function only during the mount phase.
 
 ## Usage Tips
 
