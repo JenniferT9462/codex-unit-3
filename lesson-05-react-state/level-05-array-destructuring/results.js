@@ -4,4 +4,9 @@ function displayMessage() {
     );
 }
 
-export const results = ['5', 'greet'];
+function greet() {
+  displayMessage();
+}
+
+
+export const results = [5, greet];
