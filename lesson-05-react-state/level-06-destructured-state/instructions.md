@@ -61,4 +61,4 @@ It is common practice to destructure the results of `useState`.
 - Use `event.preventDefault()` to prevent default element behavior.
 - To increment a variable, add 1 to it. Example: `myVariable = myVariable + 1`
 - Use `onClick` to attach a handler to a `button` tag. Example: `<button onClick={handleClick}>`
-- Use curly braces to render a variable in HTML tags. Example: `<p>{myVaiable}</p>`
+- Use curly braces to render a variable in HTML tags. Example: `<p>{myVariable}</p>`
