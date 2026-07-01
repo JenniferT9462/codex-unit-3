@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+
 export default function Main() {
     const [didMount, setDidMount] = useState(false);
     // debugger;
    useEffect(componentDidMount, []);
+   
     return (
       <main>
         <p>Component has mounted: {didMount.toString()}</p>
