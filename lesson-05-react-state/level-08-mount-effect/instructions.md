@@ -43,6 +43,7 @@ Every visible component goes through the mount phase.
 - The `useEffect` function takes in a callback function and a list of dependencies (variables to monitor).
 - `useEffect` will call the callback function when its dependencies (variables in the list) have changed.
 - An empty array of dependencies will cause `useEffect` to call the callback function only during the mount phase.
+- To display the value of a Boolean variable in React, concatination syntax or a template string can be used. Example: `{"didMount: " + didMount}`
 
 ## Usage Tips
 

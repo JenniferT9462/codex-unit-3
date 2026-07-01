@@ -2,7 +2,7 @@
 
 ## Objective
 
-Render data into a a stateful array of React elements.
+Render data into a stateful array of React elements.
 
 ## Benefits
 
@@ -16,7 +16,7 @@ React can be used to render data with HTML.
 3. Start the Vite server and open the React Debugger browser.
 4. In the `src/components/` folder, let the `Header` component render the title `Render Data Arrays with React`.
 5. In the `src/components/` folder, view the file `Main.jsx`.
-6. Set up the component to track the mount phase. Use `useState`, `didMount`, `setDidMount`, `componentDidMount`, `useEffect`, an empty array of dependencies, and a `p` tag to render the value of `didMount`. Code from scratch. Don't copy/paste.
+6. Set up the component to track the mount phase. Use `useState`, `didMount`, `setDidMount`, `useEffect`, `componentDidMount`, an empty array of dependencies, and a `p` tag to render the value of `didMount`. Code from scratch. Don't copy/paste.
 7. View the page to make sure it runs without errors.
 8. In the `src` folder, create a `data` folder with a `data.js` file in it.
 9. In `data.js`, `export default` an array of 5 objects.
@@ -60,7 +60,7 @@ React can be used to render data with HTML.
 
 - The `for` loop accepts an initial count, the ending condition, and an incrementor.
 - The `push` method adds an item to an array.
-- `figure` and `figcapture` are semantic tags for pictures with captions.
+- `figure` and `figcaption` are semantic tags for pictures with captions.
 - Semantic tags describe the content they contain.
 - Default imports don't use curly braces. Example: `import data from "./data/data.js";`
 
@@ -70,3 +70,4 @@ React can be used to render data with HTML.
 - Remember to import `useState` and `useEffect` from `react`.
 - Local images can be imported as variables. Example: `import pic1 from "./assets/pic1.jpg";`
 - Named exports use `export`. Default exports use `export default`.
+- The `key` prop error will not prevent the page from rendering.

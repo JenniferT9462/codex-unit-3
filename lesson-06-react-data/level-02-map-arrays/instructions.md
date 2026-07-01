@@ -46,7 +46,7 @@ The `map` method of an array can be used to replace the `for` loop.
 
 - All arrays have access to the `map` method.
 - The `map` method takes in a callback function.
-- The callback function receives an item of the array, the index number of the item, and the complete array. If only the item is needed, parameters for the index number and the array can be ommitted.
+- The callback function receives an item of the array, the index number of the item, and the complete array. If only the item is needed, parameters for the index number and the array can be omitted.
 - Callback functions for the `map` method often begin with `to` and describe what they produce. Example: `toDetails` produces details and `toFigure` produces a figure.
 - The `map` method returns an array of items produced by the callback function.
 - The data array contains objects with subject information. Example:
@@ -73,3 +73,4 @@ The `map` method of an array can be used to replace the `for` loop.
 - Remember to import `useState` and `useEffect` from `react`.
 - Named exports use `export`. Default exports use `export default`.
 - Use curly braces to render a variable in HTML. Example: `<p>{content}</p>`
+- The `key` prop error will not prevent the page from rendering.

@@ -25,7 +25,7 @@ Destructuring an object provides a convenient way to assign properties of an obj
 
 ## More Information
 
-- Object distructuring is when an objects properties are stored in separate variables.
+- Object destructuring is when an object's properties are stored in separate variables.
 - JavaScript provides syntax to destructure an object with 1 line of code.
 - When an object is provided on the righthand side of an equal sign, the object can be destructured on the lefthand side of the equal sign.
 - Because objects are represented by curly braces, it makes sense to destructure objects with curly braces.
@@ -33,7 +33,7 @@ Destructuring an object provides a convenient way to assign properties of an obj
 ## Usage Tips
 
 - To destructure an object, specify variables on the lefthand side that match the object's properties. Example: `const {color, year} = myCar;`
-- For a named export, use `export` and a variable declariation. Example: `export const x = 5;`
+- For a named export, use `export` and a variable declaration. Example: `export const x = 5;`
 - For named imports, use `import`, the list of exported variables in curly braces, `from`, and the relative path. Example: `import {myVariable1, myVariable2} from "./myVariables.js" `
 - Objects are represented by curly braces and key/value pairs. Example:
 
