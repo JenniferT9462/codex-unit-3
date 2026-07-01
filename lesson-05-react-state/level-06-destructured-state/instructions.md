@@ -33,7 +33,7 @@ It is common practice to destructure the results of `useState`.
 21. Use `onClick` to attach `handleClick` to the `button`.
 22. View the page in the browser.
 23. Click the button. The debugger should stop in `handleClick`.
-24. Inspect `count`, run `setCount`, then press play in the debugger controls.
+24. Inspect `count`, run `setCount` with the debugger, then press play in the debugger controls.
 25. View the page in the browser. Observe the rendered value of `count`.
 26. Click the button again.
 

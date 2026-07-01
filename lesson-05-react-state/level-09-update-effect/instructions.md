@@ -24,7 +24,7 @@ Every component that changes goes through the update phase.
 12. Inside of the `Main` function and underneath the `return` statement, create a function called `componentDidUpdate`.
 13. Let `componentDidUpdate` use an `if` condition that runs code only when `didMount` is `true`.
 14. In the `if` code block, use `setDidUpdate` to set `didUpdate` to `true`.
-15. On the line under `useEffect`, call the `useEffect` function with `componentDidUpdate` as the callback, and `[ message ]` as the list of dependencies. `componentDidUpdate` will be called whenever `message` changes.
+15. On the line under `useEffect`, call the `useEffect` function with `componentDidUpdate` as the callback, and `[ didMount, message ]` as the list of dependencies. `componentDidUpdate` will be called whenever `didMount` or `message` changes.
 16. View the page to make sure it runs without errors.
 17. In the `main` tag, add a `button` tag that says `Click to update`.
 18. Add `onClick` and `handleClick` to handle the click event. You'll need to create `handleClick`.
@@ -41,12 +41,14 @@ Every component that changes goes through the update phase.
 - `useEffect` always calls its callback function when the component mounts.
 - The update phase is when a stateful variable changes after the component has mounted.
 - `useEffect` will call the callback function when its dependencies (variables in the list) have changed.
+- The `useEffect` dependency list usually includes variables that the callback function depends on.
 
 ## Usage Tips
 
 - In programming, an effect (or side effect) is when a function interacts or changes something outside the function.
 - To change the value with a setter function, provide the new value. Example: `setCount(5);`
 - `useEffect` takes in a callback function and an array of variables. Example: `useEffect( myFunction, [myVariable1, myVariable2] )`
+- To display the value of a Boolean variable in React, concatination syntax or a template string can be used. Example: `{"didMount: " + didMount}`
 
 ## Hints
 

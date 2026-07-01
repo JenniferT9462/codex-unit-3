@@ -30,7 +30,7 @@ Destructuring an array provides a convenient way to assign items of an array to 
 
 ## More Information
 
-- Array distructuring is when an array's items are stored in separate variables.
+- Array destructuring is when an array's items are stored in separate variables.
 - JavaScript provides syntax to destructure an array with 1 line of code.
 - When an array is provided on the righthand side of an equal sign, the array can be destructured on the lefthand side of the equal sign.
 - Because arrays are represented by square brackets, it makes sense to destructure arrays with square brackets.
@@ -38,7 +38,7 @@ Destructuring an array provides a convenient way to assign items of an array to 
 ## Usage Tips
 
 - To destructure an array, specify variables on the lefthand side that match the item positions. Example: `const [count, displayMessage] = results;`
-- For a named export, use `export` and a variable declariation. Example: `export const x = 5;`
+- For a named export, use `export` and a variable declaration. Example: `export const x = 5;`
 - For named imports, use `import`, the list of exported variables in curly braces, `from`, and the relative path. Example: `import {myVariable1, myVariable2} from "./myVariables.js" `
 - Arrays are represented by square brackets and a list of items. Example: `const letters = [ "aaa", "bbb", "ccc" ];`
 
