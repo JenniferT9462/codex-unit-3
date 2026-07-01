@@ -70,3 +70,4 @@ React can be used to render data with HTML.
 - Remember to import `useState` and `useEffect` from `react`.
 - Local images can be imported as variables. Example: `import pic1 from "./assets/pic1.jpg";`
 - Named exports use `export`. Default exports use `export default`.
+- The `key` prop error will not prevent the page from rendering.

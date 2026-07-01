@@ -73,3 +73,4 @@ The `map` method of an array can be used to replace the `for` loop.
 - Remember to import `useState` and `useEffect` from `react`.
 - Named exports use `export`. Default exports use `export default`.
 - Use curly braces to render a variable in HTML. Example: `<p>{content}</p>`
+- The `key` prop error will not prevent the page from rendering.
