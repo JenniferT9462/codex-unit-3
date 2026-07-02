@@ -28,6 +28,7 @@ export default function Main() {
     setDidMount(true);
     handleData();
   }
+  
   function toCharacters(dataItem) {
     const details = (
       <details key={dataItem.index}>

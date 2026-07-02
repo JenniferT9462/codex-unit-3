@@ -22,9 +22,9 @@ export default function Main() {
   );
     function componentDidMount() {
       const figures = [];
-      data.forEach((item) => {
+      data.forEach((item, index) => {
         const figure = 
-        <figure>
+        <figure key={index}>
             <img src={item.src} />
             <figcaption>{item.caption}</figcaption>
         </figure>;
