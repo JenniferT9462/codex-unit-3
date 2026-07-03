@@ -20,7 +20,7 @@ Data from an API is commonly based on user input, then converted to React elemen
 8. View the page to make sure it runs without errors.
 9. In `src/components/`, view `Main.jsx`.
 10. In the `toCharacters` function, add a second parameter - `index`.
-11. In `toCharacters`, `const key = index + dataItem.fullName`.
+11. In `toCharacters`, add `const key = index + dataItem.fullName`.
 12. In the `details` tag, add the attribute `key={key}`.
 13. View the page to make sure it runs without errors.
 14. In the `main` tag, add a `form` tag, a number `input` with `name` attribute, a `label` tag, and a submit `button`. This will specify the `max` number of characters to fetch from the API.

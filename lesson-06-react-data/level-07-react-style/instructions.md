@@ -16,7 +16,7 @@ There are noticable differences in how Tailwind and TW Elements are installed an
 4. In the `src/components/` folder, let the `Header` component render the title `Style React with Tailwind and TW Elements`.
 5. View the page to make sure it runs without errors.
 6. In a new terminal, navigate to the `react-style` folder.
-7. In the terminal, install these packages - `tailwindcss@3`, `postcss`, `autoprefixer`, and `tw-elements`.
+7. In the terminal, install (or add) these packages - `tailwindcss@3`, `postcss`, `autoprefixer`, and `tw-elements`.
 8. In the terminal, initialize Tailwind with `npx tailwindcss init --postcss`. This will create the files `tailwind.config.js` and `postcss.config.js`.
 9. In `tailwind.config.js`, add `"./index.html"`, `"./src/**/*.{html,js,ts,jsx,tsx}"`, and `"./node_modules/tw-elements/js/**/*.js"` to the `content` array.
 10. In `tailwind.config.js`, add `require("tw-elements/plugin.cjs")` to the `plugins` array.
@@ -24,23 +24,24 @@ There are noticable differences in how Tailwind and TW Elements are installed an
 12. Adjacent or next to `index.html`, create the file `style.css`.
 13. In `style.css`, add the CSS code to connect Tailwind and TW Elements. See details below. Some warnings may appear, but those can be ignored.
 14. In `index.html`, use the `link` tag to connect `style.css` in the `head` tag.
-15. In the `components` folder, create the file `Slides.jsx` to export the `Slides` component.
-16. In `Slides`, `return` the TW Elements HTML code for a carousel.
-17. View the page. There will be errors.
-18. Code the following tasks from scratch. Don't copy/paste.
-19. To fix comment errors, replace HTML comments with JavaScript comments.
-20. To fix class errors, replace `class=` with `className=`.
-21. To fix style errors, convert `style` strings into objects and convert hyphenated CSS properties to camelCase.
-22. To fix stroke errors, convert hyphendated `stroke-` attributes to camelCase.
-23. To fix render or visual issues, restart the server.
-24. View the page to make sure it runs without errors and visual issues. Observe that the carousel renders, but doesn't work properly.
-25. In the TW Elements website, view the JavaScript code for the carousel. In React, `initTWE` must run in the mount phase, after the carousel code has mounted.
-26. Set up the `Slides` component to track the mount phase. Use `useState`, `didMount`, `setDidMount`, `componentDidMount`, `useEffect`, and an empty array of dependencies.
-27. In `Slides.jsx`, import the items listed in the TW Elements website - `Carousel` and `initTWE`.
-28. In `componentDidMount`, use `initTWE` as instructed in the TW Elements website.
-29. View the page in the browser. The carousel should work properly.
-30. In the `Main` component, add a `p` tag with a message that explains how to render TW Elements components.
-31. View the page in the browser.
+15. View the page to make sure it runs without errors.
+16. In the `components` folder, create the file `Slides.jsx` to export the `Slides` component.
+17. In `Slides`, `return` the TW Elements HTML code for a carousel.
+18. View the page. There will be errors.
+19. Code the following tasks from scratch. Don't copy/paste.
+20. To fix comment errors, replace HTML comments with JavaScript comments.
+21. To fix class errors, replace `class=` with `className=`.
+22. To fix style errors, convert `style` strings into objects and convert hyphenated CSS properties to camelCase.
+23. To fix stroke errors, convert hyphendated `stroke-` attributes to camelCase.
+24. To fix render or visual issues, restart the server.
+25. View the page to make sure it runs without errors and visual issues. Observe that the carousel renders, but doesn't work properly.
+26. In the TW Elements website, view the JavaScript code for the carousel. In React, `initTWE` must run in the mount phase, after the carousel code has mounted.
+27. Set up the `Slides` component to track the mount phase. Use `useState`, `didMount`, `setDidMount`, `componentDidMount`, `useEffect`, and an empty array of dependencies.
+28. In `Slides.jsx`, import the items listed in the TW Elements website - `Carousel` and `initTWE`.
+29. In `componentDidMount`, use `initTWE` as instructed in the TW Elements website.
+30. View the page in the browser. The carousel should work properly.
+31. In the `Main` component, add a `p` tag with a message that explains how to render TW Elements components.
+32. View the page in the browser.
 
 ## More Information
 
@@ -82,7 +83,7 @@ p {
 
 - Use curly braces to insert variables into HTML. Example: `<p>{myVariable}</p>`
 - To connect a .css file, the `link` tag needs `rel` and `href`. Example: `<link rel="stylesheet" href="style.css" />`
-- With `pnpm`, multiple packages can be installed, separated by spaces. Example: `pnpm install package1 package2 package3`
+- With `pnpm install` or `pnpm add`, multiple packages can be installed, separated by spaces. Example: `pnpm add package1 package2 package3`
 - Comments for JavaScript start with `//` or wrapped with `/*   */`.
 - Comments for HTML are wrapped with `<!--    -->`.
 

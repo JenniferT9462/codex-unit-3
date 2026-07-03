@@ -40,7 +40,7 @@ Data is commonly received from an API, then converted to React elements with the
 28. In the `figure` tag, add a `figcaption` tag that displays the actor's name from `dataItem`.
 29. In `toCharacters`, `return` the `details` object. This object will be added to the array that `map` produces.
 30. View the page to make sure it runs without errors.
-31. Place `debugger` breakpoints in `Main`, and `componentDidMount`.
+31. Place `debugger` breakpoints in `Main`, and `handleData`.
 32. Use the `debugger` to watch the variables change - `characters` and `details`. Also, watch characters render on the page.
 33. Use `Dev Tools` to inspect the DOM. Watch the `details` tags get added to the DOM tree.
 34. In the `main` tag, add a `p` tag that explains how to use `map` to render a data array from an API.
