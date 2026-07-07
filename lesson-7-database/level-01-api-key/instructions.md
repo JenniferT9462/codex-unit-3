@@ -1,12 +1,12 @@
-# API Input
+# API Key
 
 ## Objective
 
-Receive data from an API based on user input, then render the results.
+Receive an API key from the user, then save and load it from `sessionStorage`.
 
 ## Benefits
 
-Data from an API is commonly based on user input, then converted to React elements.
+Accessing `sessionStorage` is slightly different in React websites.
 
 ## Complete these tasks
 
