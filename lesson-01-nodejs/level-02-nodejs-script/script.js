@@ -1,0 +1,1 @@
+console.log("To run js files in the terminal you run node command followed by the file name. For example: node script.js")
