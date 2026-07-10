@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap");
+@tailwind base;
+
+/* Forces the app to cover the full window height */
+@layer base {
+  html, body, #root {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; 
+    width: 100%;
+  }
+  
+  html {
+    @apply text-neutral-800 bg-white;
+  }
+  
+  html.dark {
+    @apply text-neutral-50 bg-neutral-900;
+  }
+}
+
+@tailwind components;
+@tailwind utilities;
+
+p {
+  @apply leading-[1.6];
+}

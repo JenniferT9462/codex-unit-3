@@ -1,0 +1,31 @@
+h1 {
+  font-family: cursive;
+  color: purple;
+}
+
+p {
+  font-size: 20px;
+}
+
+footer {
+  position: fixed;
+  margin-bottom: 0px;
+  width: 100%;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  align-items: center;
+  border: solid 3px purple;
+  border-radius: 8px;
+  padding: 12px;
+
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+}
