@@ -1,0 +1,25 @@
+
+
+h1 {
+  font-family: cursive;
+  color: purple;
+  text-align: center;
+  margin-top: 60px;
+}
+
+p {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 60px;
+  
+}
+
+#images {
+  display: flex;
+  justify-content: space-around;
+
+}
+
+#images > img {
+  width: 400px;
+}
