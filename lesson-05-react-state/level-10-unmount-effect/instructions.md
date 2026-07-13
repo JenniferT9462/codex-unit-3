@@ -23,10 +23,10 @@ Every component that is removed from the DOM goes through the unmount phase.
 11. View the page to make sure it runs without errors.
 12. In the `src/components/` folder, view the `Main` component.
 13. In `Main` parameters, destructure `setUnmount` from the props object.
-14. Inside of the `Main` function and underneath the `return` statement, create a function called `componentDidUnmount`.
-15. Let `componentDidUnmount` return a nameless function. When a function is returned during the mount phase, React will call the function during the unmount phase.
+14. Inside of the `Main` function and underneath the `return` statement, create a function called `componentWillUnmount`.
+15. Let `componentWillUnmount` return a nameless function. When a function is returned during the mount phase, React will call the function during the unmount phase.
 16. In the nameless function, add `alert` to display `The Main component has unmounted`.
-17. In the `Main` function, add a `useEffect` with `componentDidUnmount` for the callback and `[]` for dependencies.
+17. In the `Main` function, add a `useEffect` with `componentWillUnmount` for the callback and `[]` for dependencies.
 18. View the page to make sure it runs without errors.
 19. In the `main` tag, add a `button` tag that says `Click to unmount`.
 20. Add `onClick` and `handleClick` to handle the click event. You'll need to create `handleClick` under the `return` statement of `Main`.
@@ -34,7 +34,7 @@ Every component that is removed from the DOM goes through the unmount phase.
 22. View the page to make sure it runs without errors.
 23. View the DOM tree and find the `main` tag in it.
 24. Click the unmount button. The `Main` component should unmount.
-25. Place `debugger` or breakpoint in `Main` above the `return`, in `componentDidUnmount`, `handleClick`, and `App`.
+25. Place `debugger` or breakpoint in `Main` above the `return`, in `componentWillUnmount`, `handleClick`, and `App`.
 26. Use the `debugger` to watch variables change - `mainComponent`, and `unmount`. Also, watch the page render the alert.
 27. In the `main` tag, add a `p` tag with a message.
 28. Let the message explain how to run code during the unmount phase.
