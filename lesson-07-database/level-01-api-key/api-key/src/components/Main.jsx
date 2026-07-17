@@ -1,18 +1,39 @@
+import {useState, useEffect} from 'react';
+
 export default function Main() {
+  const [apiKey, setApiKey] = useState("");
+  const [didMount, setDidMount] = useState(false)
+
+  useEffect(componentDidMount, []);
+
     return (
       <main>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="password">
+            Password:
+            <input type="password" name="password"/>
+          </label>
+          <button type="submit">Submit</button>
+        </form>
+        <output>{"API Key: " + apiKey}</output>
         <p>
-          Creating a custom React template involves setting up a clean, minimal
-          foundation that you can duplicate whenever you start a new project.
-          You begin by initializing a base build tool like Vite, purging all the
-          default boilerplate styling and placeholder code, and installing your
-          core packages. From there, you organize a standard folder structure
-          with dedicated directories for things like assets, components, and
-          hooks, and then wire up your essential global configurations. By
-          saving this streamlined architecture to a boilerplate repository, you
-          eliminate the tedious, repetitive setup work and can launch directly
-          into building features next time.
+          how to save an API key with a handler function and restore the API
+          when the component mounts.
         </p>
       </main>
     );
+
+    function handleSubmit(event){
+      event.preventDefault();
+      const form = event.target;
+      const value = form.elements.password.value;
+      sessionStorage.setItem("apiKey", value);
+      setApiKey(value);
+    }
+
+    function componentDidMount() {
+      setDidMount(true)
+      const storedValue = sessionStorage.getItem("apiKey");
+      setApiKey(storedValue);
+    }
 }

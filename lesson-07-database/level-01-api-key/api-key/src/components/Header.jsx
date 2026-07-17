@@ -1,7 +1,7 @@
 export default function Header() {
     return (
-        <header>
-            <h1>React Template</h1>
-        </header>
-    )
+      <header>
+        <h1>Save and restore an API key</h1>
+      </header>
+    );
 }
