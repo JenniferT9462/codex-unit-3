@@ -1,16 +1,69 @@
+import { useState, useEffect } from "react";
+
 export default function Main() {
-    return (
-      <main>
-        <p style={{ marginTop: "20px", fontStyle: "italic", color: "#555" }}>
-          The <strong>key</strong> prop is a special string attribute you need
-          to include when creating lists of elements in React. It helps React
-          identify which items have changed, are added, or are removed, giving
-          elements a stable identity. The second parameter of
-          <code>toDetails</code> is the <code>index</code>, which represents the
-          current item's position in the array. Combined with the input label,
-          it creates a unique identifier for React's reconciliation process,
-          though it remains invisible in the final browser DOM.
-        </p>
-      </main>
+  const [values, setValues] = useState([]);
+  return (
+    <main>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="fullName">
+          Full Name:
+          <input type="text" name="fullName" />
+        </label>
+
+        <label htmlFor="email">
+          Email:
+          <input type="email" name="email" />
+        </label>
+
+        <label htmlFor="password">
+          Password:
+          <input type="password" name="password" />
+        </label>
+
+        <button type="submit">Submit</button>
+      </form>
+
+      <output>{values}</output>
+      <p>
+        The <strong>key</strong> attribute provides a unique identity to
+        elements in a list, helping the framework efficiently identify which
+        items have changed, been added, or been removed. The second parameter of
+        the <strong>toDetails</strong> function typically passes additional
+        state or context—such as an ID or an options object—to safely navigate
+        or route the user to that specific item's details view.
+      </p>
+    </main>
+  );
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formInputs = [
+      {
+        label: "Full Name",
+        value: form.elements.fullName.value,
+      },
+      {
+        label: "Email",
+        value: form.elements.email.value,
+      },
+      {
+        label: "Password",
+        value: form.elements.password.value,
+      },
+    ];
+    const details = formInputs.map(toDetails);
+    setValues(details);
+  }
+
+  function toDetails(formInput) {
+    const key = index + formInput.label;
+    const details = (
+      <details key={key}>
+        <summary>{formInput.label}</summary>
+        <p>{formInput.value}</p>
+      </details>
     );
+    return details;
+  }
 }
