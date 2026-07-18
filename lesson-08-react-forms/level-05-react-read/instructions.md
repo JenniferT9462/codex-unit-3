@@ -22,16 +22,16 @@ Dynamically use React to perform CRUD operations on a database with an online fo
 10. After the `return` statement, add the `async` function `handleSubmit` that accepts the `event` object and prevents default form behavior.
 11. In `Read.jsx`, use `useRead`, pass it the `prisma` object, and destructure its items into `data` and `handleSubmit`. In the `form` tag, add the attribute `onSubmit={handleSubmit}`.
 12. View the website pages. After fixing import errors, observe that the Web Client page renders.
-13. In `useRead.jsx`, find products in `handleSubmit`: Add `const form = event.target`. Add `const where = {}`. This is the `where` object that will match products. Use the `prisma` object to search the `products` table with `findMany({where})`. That is property shorthand syntax. Then save the results in the `results` variable.
+13. In `useRead.js`, find products in `handleSubmit`: Add `const form = event.target`. Add `const where = {}`. This is the `where` object that will match products. Use the `prisma` object to search the `products` table with `findMany({where})`. That is property shorthand syntax. Then save the results in the `results` variable.
 14. View the Web Client page. With a `debugger`, observe that the database returns the whole list of `results` when a valid password is provided.
 15. In `handleSubmit`, create variables to store each value from the form. Example: `const productName = form.elements.productName.value;`
 16. For the `where` object, only add values if they were provided by the user: Add the `id` property if the user provided a product ID. Add the `name` property if the user provided a product name. Add the `price` property if the user provided a max price. Example: `if (productName) where.name = productName;`
 17. Let `price` be an object with the `lte` property to choose items with prices less than or equal to the max price. Example: `where.price = { lte: maxPrice }`
 18. View the Web Client page. With a `debugger`, observe how `where` changes when the user inputs different values. Observe that the database only returns matching `results`.
-19. Let `Read` give `WebClient` the `data` results: Track the update phase with `useEffect`, `componentDidMount`, and `[data]` for dependencies. This will be used to send data whenever it changes. Add the function `componentDidMount` and an `if` statement that checks for `data`. In the `if` code block, use `setData` to send the `data` to `WebClient`.
+19. Let `Read` give `WebClient` the `data` results: Track the update phase with `useEffect`, `componentDidUpdate`, and `[data]` for dependencies. This will be used to send data whenever it changes. Add the function `componentDidUpdate` and an `if` statement that checks for `data`. In the `if` code block, use `setData` to send the `data` to `WebClient`.
 20. In `WebClient.jsx`, add `debugger` to the function `toDetails` to view `item` properties. Render each `item` with `key`, `Fragment`, `dt`, `dd`, and `img`.
 21. View the Web Client page. After fixing any errors, observe that products are rendered when they match the form values.
-22. Add `debugger` breakpoints to `WebClient`, `Read`, `componentDidMount`, `useRead`, and `handeSubmit` in `useRead.js`. Observe how these variables transfer information between components and custom hooks - `prisma`, `setData`, and `data`.
+22. Add `debugger` breakpoints to `WebClient`, `Read`, `componentDidUpdate`, `useRead`, and `handeSubmit` in `useRead.js`. Observe how these variables transfer information between components and custom hooks - `prisma`, `setData`, and `data`.
 23. In the `Home` component, add a `p` tag that explains how use the Prisma web client in React to read data that matches user input.
 24. View the website pages and make sure they run without errors.
 

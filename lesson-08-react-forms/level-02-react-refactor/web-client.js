@@ -19449,7 +19449,11 @@ function handleError(error) {
 }
 
 // index.js
-async function createWebClient({ datasourceUrl, jsonSchema }) {
+async function createWebClient({
+  datasourceUrl,
+  jsonSchema,
+  disableWarningInBrowsers = false
+}) {
   try {
     const isNodeJs = typeof window === "undefined";
     if (isNodeJs) {
@@ -19457,6 +19461,7 @@ async function createWebClient({ datasourceUrl, jsonSchema }) {
       dotenv.config();
       if (!datasourceUrl) datasourceUrl = process.env.DATABASE_URL;
     }
+    ce.disableWarningInBrowsers = disableWarningInBrowsers;
     const pool = new Mn({ connectionString: datasourceUrl });
     const jsonData = toJsonData(jsonSchema);
     const schema = toForgeSchema(jsonData);
