@@ -34,9 +34,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/bson.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/bson.js
 var require_bson = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/bson.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/bson.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.isObjectId = exports.ObjectIdCtor = void 0;
@@ -59,9 +59,9 @@ var require_bson = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/client.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/client.js
 var require_client = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/client.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/client.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.dbClient = void 0;
@@ -156,9 +156,9 @@ var require_client = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/schema/core.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/schema/core.js
 var require_core = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/schema/core.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/schema/core.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.rel = exports.model = exports.embed = exports.enums = exports.f = exports.Field = void 0;
@@ -275,6 +275,10 @@ var require_core = __commonJS({
       bigint: () => make("bigint"),
       bool: () => make("bool"),
       dateTime: () => make("dateTime"),
+      // Typed JSON column. `f.json<Shape>()` carries `Shape` through to the row
+      // read type and the create/update input; the default is `unknown` so an
+      // un-parameterised `f.json()` forces callers to narrow rather than handing
+      // back `any`. Pass `f.json<any>()` to opt back into the pre-2.6.4 behaviour.
       json: () => make("json"),
       enumOf: (values) => new Field({
         kind: "enum",
@@ -406,9 +410,9 @@ var require_core = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/schema/active.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/schema/active.js
 var require_active = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/schema/active.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/schema/active.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.setActiveSchema = setActiveSchema;
@@ -426,16 +430,16 @@ var require_active = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/schema/index.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/schema/index.js
 var require_schema = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/schema/index.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/schema/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.schema = exports.sampleSchema = exports.PostStats = exports.PublishedPosts = exports.AuditLog = exports.Like = exports.PostTag = exports.Tag = exports.Comment = exports.Post = exports.Profile = exports.User = exports.RevisionEmbed = exports.SocialLinkEmbed = exports.AddressEmbed = exports.LikeKind = exports.PostStatus = exports.Role = void 0;
     var core_1 = require_core();
     var core_2 = require_core();
     var active_1 = require_active();
-    var rel = core_1.rel;
+    var rel3 = core_1.rel;
     exports.Role = (0, core_1.enums)(["USER", "EDITOR", "ADMIN"]);
     exports.PostStatus = (0, core_1.enums)(["DRAFT", "PUBLISHED", "ARCHIVED"]);
     exports.LikeKind = (0, core_1.enums)(["LIKE", "BOOKMARK"]);
@@ -472,11 +476,11 @@ var require_schema = __commonJS({
       // Inverse-one: Profile.user_id is the actual FK (declared on Profile below).
       // We use rel.many here so it's clearly the inverse side; callers fetch
       // via `db.profile.findFirst({ where: { user_id } })` for the singleton.
-      profiles: rel.many("profile", { on: "user_id", refs: "id" }),
-      posts: rel.many("post", { on: "author_id", refs: "id" }),
-      comments: rel.many("comment", { on: "author_id", refs: "id" }),
-      likes: rel.many("like", { on: "user_id", refs: "id" }),
-      audit_logs: rel.many("auditLog", { on: "actor_id", refs: "id" })
+      profiles: rel3.many("profile", { on: "user_id", refs: "id" }),
+      posts: rel3.many("post", { on: "author_id", refs: "id" }),
+      comments: rel3.many("comment", { on: "author_id", refs: "id" }),
+      likes: rel3.many("like", { on: "user_id", refs: "id" }),
+      audit_logs: rel3.many("auditLog", { on: "actor_id", refs: "id" })
     }));
     exports.Profile = (0, core_2.model)("profiles", {
       id: core_1.f.id(),
@@ -486,7 +490,7 @@ var require_schema = __commonJS({
       social_links: core_1.f.embedMany(exports.SocialLinkEmbed),
       created_at: core_1.f.dateTime().default("now")
     }).relate(() => ({
-      user: rel.one("user", { on: "user_id", refs: "id", onDelete: "Cascade" })
+      user: rel3.one("user", { on: "user_id", refs: "id", onDelete: "Cascade" })
     }));
     exports.Post = (0, core_2.model)("posts", {
       id: core_1.f.id(),
@@ -508,10 +512,10 @@ var require_schema = __commonJS({
         { keys: { slug: 1 } }
       ]
     }).relate(() => ({
-      author: rel.one("user", { on: "author_id", refs: "id", onDelete: "Cascade" }),
-      comments: rel.many("comment", { on: "post_id", refs: "id" }),
-      likes: rel.many("like", { on: "post_id", refs: "id" }),
-      post_tags: rel.many("postTag", { on: "post_id", refs: "id" })
+      author: rel3.one("user", { on: "author_id", refs: "id", onDelete: "Cascade" }),
+      comments: rel3.many("comment", { on: "post_id", refs: "id" }),
+      likes: rel3.many("like", { on: "post_id", refs: "id" }),
+      post_tags: rel3.many("postTag", { on: "post_id", refs: "id" })
     }));
     exports.Comment = (0, core_2.model)("comments", {
       id: core_1.f.id(),
@@ -528,10 +532,10 @@ var require_schema = __commonJS({
         { keys: { parent_id: 1 } }
       ]
     }).relate(() => ({
-      post: rel.one("post", { on: "post_id", refs: "id", onDelete: "Cascade" }),
-      author: rel.one("user", { on: "author_id", refs: "id", onDelete: "SetNull" }),
-      parent: rel.one("comment", { on: "parent_id", refs: "id", onDelete: "NoAction" }),
-      replies: rel.many("comment", { on: "parent_id", refs: "id" })
+      post: rel3.one("post", { on: "post_id", refs: "id", onDelete: "Cascade" }),
+      author: rel3.one("user", { on: "author_id", refs: "id", onDelete: "SetNull" }),
+      parent: rel3.one("comment", { on: "parent_id", refs: "id", onDelete: "NoAction" }),
+      replies: rel3.many("comment", { on: "parent_id", refs: "id" })
     }));
     exports.Tag = (0, core_2.model)("tags", {
       id: core_1.f.id(),
@@ -539,7 +543,7 @@ var require_schema = __commonJS({
       description: core_1.f.text().optional(),
       created_at: core_1.f.dateTime().default("now")
     }).relate(() => ({
-      post_tags: rel.many("postTag", { on: "tag_id", refs: "id" })
+      post_tags: rel3.many("postTag", { on: "tag_id", refs: "id" })
     }));
     exports.PostTag = (0, core_2.model)("post_tags", {
       id: core_1.f.id(),
@@ -549,8 +553,8 @@ var require_schema = __commonJS({
     }, {
       uniques: [["post_id", "tag_id"]]
     }).relate(() => ({
-      post: rel.one("post", { on: "post_id", refs: "id", onDelete: "Cascade" }),
-      tag: rel.one("tag", { on: "tag_id", refs: "id", onDelete: "Cascade" })
+      post: rel3.one("post", { on: "post_id", refs: "id", onDelete: "Cascade" }),
+      tag: rel3.one("tag", { on: "tag_id", refs: "id", onDelete: "Cascade" })
     }));
     exports.Like = (0, core_2.model)("likes", {
       id: core_1.f.id(),
@@ -561,8 +565,8 @@ var require_schema = __commonJS({
     }, {
       uniques: [["user_id", "post_id", "kind"]]
     }).relate(() => ({
-      user: rel.one("user", { on: "user_id", refs: "id", onDelete: "Cascade" }),
-      post: rel.one("post", { on: "post_id", refs: "id", onDelete: "Cascade" })
+      user: rel3.one("user", { on: "user_id", refs: "id", onDelete: "Cascade" }),
+      post: rel3.one("post", { on: "post_id", refs: "id", onDelete: "Cascade" })
     }));
     exports.AuditLog = (0, core_2.model)("audit_logs", {
       id: core_1.f.id(),
@@ -574,7 +578,7 @@ var require_schema = __commonJS({
     }, {
       indexes: [{ keys: { actor_id: 1, created_at: -1 } }]
     }).relate(() => ({
-      actor: rel.one("user", { on: "actor_id", refs: "id", onDelete: "SetNull" })
+      actor: rel3.one("user", { on: "actor_id", refs: "id", onDelete: "SetNull" })
     }));
     exports.PublishedPosts = (0, core_2.model)("published_posts", {
       id: core_1.f.id(),
@@ -632,9 +636,9 @@ var require_schema = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/coerce.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/coerce.js
 var require_coerce = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/coerce.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/coerce.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.coerceFieldValue = coerceFieldValue;
@@ -846,9 +850,9 @@ var require_coerce = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/errors.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/errors.js
 var require_errors = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/errors.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/errors.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.DbKnownError = void 0;
@@ -883,9 +887,9 @@ var require_errors = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/ir/build/cursor.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/ir/build/cursor.js
 var require_cursor = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/ir/build/cursor.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/ir/build/cursor.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.buildCursor = buildCursor;
@@ -909,9 +913,9 @@ var require_cursor = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/ir/build/orderby.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/ir/build/orderby.js
 var require_orderby = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/ir/build/orderby.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/ir/build/orderby.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.buildOrderBy = buildOrderBy;
@@ -967,9 +971,9 @@ var require_orderby = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/ir/build/projection.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/ir/build/projection.js
 var require_projection = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/ir/build/projection.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/ir/build/projection.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.buildProjection = buildProjection;
@@ -1000,10 +1004,10 @@ var require_projection = __commonJS({
             }
             continue;
           }
-          const rel = relations[key];
-          if (!rel)
+          const rel3 = relations[key];
+          if (!rel3)
             continue;
-          hydration.push(toRelationPlan(key, rel, v2 === true ? {} : v2, schema));
+          hydration.push(toRelationPlan(key, rel3, v2 === true ? {} : v2, schema));
         }
         const omitFields = args.omit ? Object.keys(args.omit).filter((k) => args.omit[k]) : void 0;
         return {
@@ -1027,9 +1031,9 @@ var require_projection = __commonJS({
             }
             continue;
           }
-          const rel = relations[key];
-          if (rel) {
-            hydration.push(toRelationPlan(key, rel, v2 === true ? {} : v2, schema));
+          const rel3 = relations[key];
+          if (rel3) {
+            hydration.push(toRelationPlan(key, rel3, v2 === true ? {} : v2, schema));
             continue;
           }
           fields.push(key);
@@ -1041,30 +1045,30 @@ var require_projection = __commonJS({
       }
       return {};
     }
-    function toRelationPlan(name, rel, nestedArgs, schema) {
+    function toRelationPlan(name, rel3, nestedArgs, schema) {
       const plan = {
         name,
-        kind: rel.kind,
-        target: rel.target,
-        on: rel.on,
-        refs: rel.refs
+        kind: rel3.kind,
+        target: rel3.target,
+        on: rel3.on,
+        refs: rel3.refs
       };
       if (!nestedArgs)
         return plan;
       const hasNested = nestedArgs.select || nestedArgs.include || nestedArgs.omit || nestedArgs.where || nestedArgs.orderBy || nestedArgs.take !== void 0 || nestedArgs.skip !== void 0 || nestedArgs.limit !== void 0 || nestedArgs.offset !== void 0 || nestedArgs.distinct;
       if (!hasNested)
         return plan;
-      const targetModel = schema?.[rel.target];
+      const targetModel = schema?.[rel3.target];
       if (targetModel) {
         plan.nested = {
-          cardinality: rel.kind === "one" ? "one" : "many",
+          cardinality: rel3.kind === "one" ? "one" : "many",
           limit: nestedArgs.take ?? nestedArgs.limit,
           offset: nestedArgs.skip ?? nestedArgs.offset,
-          ...{ __rawArgs: nestedArgs, __target: rel.target }
+          ...{ __rawArgs: nestedArgs, __target: rel3.target }
         };
       } else {
         plan.nested = {
-          cardinality: rel.kind === "one" ? "one" : "many",
+          cardinality: rel3.kind === "one" ? "one" : "many",
           limit: nestedArgs.take ?? nestedArgs.limit,
           offset: nestedArgs.skip ?? nestedArgs.offset,
           ...{ __rawArgs: nestedArgs }
@@ -1075,9 +1079,9 @@ var require_projection = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/ir/build/data.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/ir/build/data.js
 var require_data = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/ir/build/data.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/ir/build/data.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.buildUpdateData = buildUpdateData;
@@ -1126,9 +1130,9 @@ var require_data = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/col.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/col.js
 var require_col = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/col.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/col.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.FORGE_COL = void 0;
@@ -1151,9 +1155,9 @@ var require_col = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/ir/build/where.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/ir/build/where.js
 var require_where = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/ir/build/where.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/ir/build/where.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.buildWhereTree = buildWhereTree;
@@ -1230,9 +1234,9 @@ var require_where = __commonJS({
             children.push({ kind: "not", child: { kind: "and", children: inner } });
           continue;
         }
-        const rel = relations[key];
-        if (rel && value && typeof value === "object") {
-          const targetModel = schema?.[rel.target] ?? model3;
+        const rel3 = relations[key];
+        if (rel3 && value && typeof value === "object") {
+          const targetModel = schema?.[rel3.target] ?? model3;
           for (const mode of ["is", "isNot", "some", "every", "none"]) {
             if (mode in value) {
               const nested = buildWhereTree(targetModel, value[mode], schema) ?? null;
@@ -1437,9 +1441,9 @@ var require_where = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/ir/build/index.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/ir/build/index.js
 var require_build = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/ir/build/index.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/ir/build/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.buildCursor = exports.buildUpdateData = exports.buildProjection = exports.buildOrderBy = exports.buildWhereTree = void 0;
@@ -1597,9 +1601,9 @@ var require_build = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/shared/wkt.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/shared/wkt.js
 var require_wkt = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/shared/wkt.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/shared/wkt.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.toMultiPolygonWKT = toMultiPolygonWKT;
@@ -1659,9 +1663,9 @@ var require_wkt = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/compile-from-ir.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/compile-from-ir.js
 var require_compile_from_ir = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/compile-from-ir.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/compile-from-ir.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.compileSelect = compileSelect;
@@ -2082,9 +2086,9 @@ var require_compile_from_ir = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/compile.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/compile.js
 var require_compile = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/compile.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/compile.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.buildMongoCompileApi = buildMongoCompileApi;
@@ -2222,9 +2226,9 @@ var require_compile = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/postgres/dialect.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/postgres/dialect.js
 var require_dialect = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/postgres/dialect.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/postgres/dialect.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.PostgresDialect = void 0;
@@ -2367,9 +2371,9 @@ var require_dialect = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/postgres/compile-from-ir.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/postgres/compile-from-ir.js
 var require_compile_from_ir2 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/postgres/compile-from-ir.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/postgres/compile-from-ir.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.compileSelect = compileSelect;
@@ -2623,19 +2627,19 @@ var require_compile_from_ir2 = __commonJS({
     }
     function compileRelationFilter(ctx, tree) {
       const relations = ctx.model.relations();
-      const rel = relations[tree.relation];
-      if (!rel)
+      const rel3 = relations[tree.relation];
+      if (!rel3)
         return "TRUE";
-      const targetModel = ctx.schemaOverride?.[rel.target] ?? schema_1.schema[rel.target];
+      const targetModel = ctx.schemaOverride?.[rel3.target] ?? schema_1.schema[rel3.target];
       if (!targetModel)
         return "TRUE";
       ctx.aliasCount.n += 1;
       const alias = `t${ctx.aliasCount.n}`;
       const aliasQ = ctx.d.quoteIdent(alias);
       const subTable = ctx.d.quoteIdent(targetModel.collection);
-      const isOwning = ctx.model.fields[rel.on] != null;
-      const parentCol = isOwning ? rel.on : rel.refs;
-      const targetCol = isOwning ? rel.refs : rel.on;
+      const isOwning = ctx.model.fields[rel3.on] != null;
+      const parentCol = isOwning ? rel3.on : rel3.refs;
+      const targetCol = isOwning ? rel3.refs : rel3.on;
       const joinCondition = `${aliasQ}.${ctx.d.quoteIdent(targetCol)} = ${ctx.table}.${ctx.d.quoteIdent(parentCol)}`;
       const inner = tree.nested ? compileWhereNode({
         d: ctx.d,
@@ -2964,9 +2968,9 @@ var require_compile_from_ir2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/postgres/compile.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/postgres/compile.js
 var require_compile2 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/postgres/compile.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/postgres/compile.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.buildPostgresCompileApi = buildPostgresCompileApi;
@@ -3092,9 +3096,9 @@ var require_compile2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mysql/dialect.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mysql/dialect.js
 var require_dialect2 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mysql/dialect.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mysql/dialect.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.MysqlDialect = void 0;
@@ -3235,9 +3239,9 @@ var require_dialect2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mysql/compile-from-ir.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mysql/compile-from-ir.js
 var require_compile_from_ir3 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mysql/compile-from-ir.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mysql/compile-from-ir.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.compileSelect = compileSelect;
@@ -3324,9 +3328,9 @@ var require_compile_from_ir3 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mysql/compile.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mysql/compile.js
 var require_compile3 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mysql/compile.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mysql/compile.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.buildMysqlCompileApi = buildMysqlCompileApi;
@@ -3447,9 +3451,9 @@ var require_compile3 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/dialect.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/dialect.js
 var require_dialect3 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/dialect.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/dialect.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.SqliteDialect = void 0;
@@ -3586,9 +3590,9 @@ var require_dialect3 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/compile-from-ir.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/compile-from-ir.js
 var require_compile_from_ir4 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/compile-from-ir.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/compile-from-ir.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.compileSelect = compileSelect;
@@ -3664,9 +3668,9 @@ var require_compile_from_ir4 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/compile.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/compile.js
 var require_compile4 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/compile.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/compile.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.buildSqliteCompileApi = buildSqliteCompileApi;
@@ -3787,9 +3791,9 @@ var require_compile4 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/duckdb/dialect.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/duckdb/dialect.js
 var require_dialect4 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/duckdb/dialect.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/duckdb/dialect.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.DuckdbDialect = void 0;
@@ -3937,9 +3941,9 @@ var require_dialect4 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/duckdb/compile-from-ir.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/duckdb/compile-from-ir.js
 var require_compile_from_ir5 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/duckdb/compile-from-ir.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/duckdb/compile-from-ir.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.compileSelect = compileSelect;
@@ -3975,9 +3979,9 @@ var require_compile_from_ir5 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/duckdb/compile.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/duckdb/compile.js
 var require_compile5 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/duckdb/compile.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/duckdb/compile.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.buildDuckdbCompileApi = buildDuckdbCompileApi;
@@ -4095,9 +4099,9 @@ var require_compile5 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mssql/dialect.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mssql/dialect.js
 var require_dialect5 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mssql/dialect.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mssql/dialect.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.MssqlDialect = void 0;
@@ -4246,9 +4250,9 @@ var require_dialect5 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mssql/compile-from-ir.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mssql/compile-from-ir.js
 var require_compile_from_ir6 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mssql/compile-from-ir.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mssql/compile-from-ir.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.compileSelect = compileSelect;
@@ -4473,9 +4477,9 @@ var require_compile_from_ir6 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mssql/compile.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mssql/compile.js
 var require_compile6 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mssql/compile.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mssql/compile.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.buildMssqlCompileApi = buildMssqlCompileApi;
@@ -4574,9 +4578,9 @@ var require_compile6 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/events.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/events.js
 var require_events = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/events.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/events.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ForgeEmitter = void 0;
@@ -4651,9 +4655,9 @@ var require_events = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/detect.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/detect.js
 var require_detect = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/detect.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/detect.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.DRIVER_PACKAGE_FOR = void 0;
@@ -4699,9 +4703,9 @@ var require_detect = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/missing-driver.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/missing-driver.js
 var require_missing_driver = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/missing-driver.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/missing-driver.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ForgeMissingDriverError = void 0;
@@ -4756,9 +4760,9 @@ var require_missing_driver = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/cascade.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/cascade.js
 var require_cascade = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/cascade.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/cascade.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.applyCascadesForDelete = applyCascadesForDelete;
@@ -4777,8 +4781,8 @@ var require_cascade = __commonJS({
       const out = [];
       for (const childModel of allModels) {
         const rels = childModel.relations();
-        for (const [relName, rel] of Object.entries(rels)) {
-          const r = rel;
+        for (const [relName, rel3] of Object.entries(rels)) {
+          const r = rel3;
           if (r.kind !== "one" || r.inverse)
             continue;
           if (r.target !== parentKey)
@@ -4794,20 +4798,20 @@ var require_cascade = __commonJS({
       const children = findChildRelations(parentModel);
       if (children.length === 0)
         return;
-      for (const { childModel, rel } of children) {
-        const onDelete = rel.onDelete || "NoAction";
+      for (const { childModel, rel: rel3 } of children) {
+        const onDelete = rel3.onDelete || "NoAction";
         if (onDelete === "NoAction" || onDelete === "Restrict")
           continue;
-        const parentRefValues = unique(parentDocs.map((p2) => p2[rel.refs] ?? p2[rel.refs === "id" ? "_id" : rel.refs]).filter(notNull));
+        const parentRefValues = unique(parentDocs.map((p2) => p2[rel3.refs] ?? p2[rel3.refs === "id" ? "_id" : rel3.refs]).filter(notNull));
         if (parentRefValues.length === 0)
           continue;
-        const childOnDef = childModel.fields[rel.on];
+        const childOnDef = childModel.fields[rel3.on];
         const isObjectIdField = childOnDef?.kind === "id" || childOnDef?.kind === "objectId";
         const inValues = isObjectIdField ? parentRefValues.map((v2) => v2 instanceof (0, bson_1.mongo)().ObjectId ? v2 : typeof v2 === "string" && (0, bson_1.mongo)().ObjectId.isValid(v2) ? new ((0, bson_1.mongo)()).ObjectId(v2) : v2) : parentRefValues;
         const childCollection = client_1.dbClient.db.collection(childModel.collection);
-        const filter = { [rel.on]: { $in: inValues } };
+        const filter = { [rel3.on]: { $in: inValues } };
         if (onDelete === "SetNull") {
-          await childCollection.updateMany(filter, { $unset: { [rel.on]: "" } });
+          await childCollection.updateMany(filter, { $unset: { [rel3.on]: "" } });
           continue;
         }
         const childDocs = await childCollection.find(filter).toArray();
@@ -4845,9 +4849,9 @@ var require_cascade = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/execute.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/execute.js
 var require_execute = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/execute.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/execute.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.executeSelect = executeSelect;
@@ -5144,97 +5148,97 @@ var require_execute = __commonJS({
       return coll.countDocuments(filter, sessOpt);
     }
     async function hydrate(rows, parentModel, hydration, session) {
-      for (const rel of hydration) {
-        const targetModel = schema_1.schema[rel.target];
+      for (const rel3 of hydration) {
+        const targetModel = schema_1.schema[rel3.target];
         if (!targetModel)
           continue;
-        const isOwningOne = rel.kind === "one" && hasField(parentModel, rel.on);
+        const isOwningOne = rel3.kind === "one" && hasField(parentModel, rel3.on);
         if (isOwningOne) {
-          await hydrateOwningOne(rows, rel, parentModel, targetModel, session);
-        } else if (rel.kind === "one") {
-          await hydrateInverseOne(rows, rel, parentModel, targetModel, session);
+          await hydrateOwningOne(rows, rel3, parentModel, targetModel, session);
+        } else if (rel3.kind === "one") {
+          await hydrateInverseOne(rows, rel3, parentModel, targetModel, session);
         } else {
-          await hydrateMany(rows, rel, parentModel, targetModel, session);
+          await hydrateMany(rows, rel3, parentModel, targetModel, session);
         }
       }
     }
-    async function hydrateOwningOne(rows, rel, parentModel, targetModel, session) {
-      const fks = unique(rows.map((r) => r[rel.on]).filter(notNull));
+    async function hydrateOwningOne(rows, rel3, parentModel, targetModel, session) {
+      const fks = unique(rows.map((r) => r[rel3.on]).filter(notNull));
       if (fks.length === 0) {
         for (const r of rows)
-          r[rel.name] = null;
+          r[rel3.name] = null;
         return;
       }
-      const coercedRefs = fks.map((v2) => (0, coerce_1.coerceFieldValue)((0, coerce_1.getFieldDef)(targetModel, rel.refs) ?? targetModel.fields.id, v2));
-      const subNode = mergeNested(rel, {
+      const coercedRefs = fks.map((v2) => (0, coerce_1.coerceFieldValue)((0, coerce_1.getFieldDef)(targetModel, rel3.refs) ?? targetModel.fields.id, v2));
+      const subNode = mergeNested(rel3, {
         where: void 0,
         cardinality: "many"
       });
       const node = {
         ...subNode,
         kind: "select",
-        model: rel.target,
+        model: rel3.target,
         cardinality: "many",
-        where: { kind: "leaf", field: rel.refs, op: "in", value: coercedRefs }
+        where: { kind: "leaf", field: rel3.refs, op: "in", value: coercedRefs }
       };
       const found = await executeSelect(node, targetModel, { session });
       const byRef = /* @__PURE__ */ new Map();
       for (const t of found)
-        byRef.set(stringKey(t[rel.refs]), t);
+        byRef.set(stringKey(t[rel3.refs]), t);
       for (const r of rows) {
-        const k = r[rel.on];
-        r[rel.name] = k == null ? null : byRef.get(stringKey(k)) ?? null;
+        const k = r[rel3.on];
+        r[rel3.name] = k == null ? null : byRef.get(stringKey(k)) ?? null;
       }
     }
-    async function hydrateInverseOne(rows, rel, parentModel, targetModel, session) {
-      const parentRefs = unique(rows.map((r) => r[rel.refs]).filter(notNull));
+    async function hydrateInverseOne(rows, rel3, parentModel, targetModel, session) {
+      const parentRefs = unique(rows.map((r) => r[rel3.refs]).filter(notNull));
       if (parentRefs.length === 0) {
         for (const r of rows)
-          r[rel.name] = null;
+          r[rel3.name] = null;
         return;
       }
-      const fkDef = (0, coerce_1.getFieldDef)(targetModel, rel.on);
-      const coerced = parentRefs.map((v2) => (0, coerce_1.coerceFieldValue)(fkDef ?? targetModel.fields[rel.on] ?? { kind: "objectId" }, v2));
-      const subNode = mergeNested(rel, { cardinality: "many" });
+      const fkDef = (0, coerce_1.getFieldDef)(targetModel, rel3.on);
+      const coerced = parentRefs.map((v2) => (0, coerce_1.coerceFieldValue)(fkDef ?? targetModel.fields[rel3.on] ?? { kind: "objectId" }, v2));
+      const subNode = mergeNested(rel3, { cardinality: "many" });
       const node = {
         ...subNode,
         kind: "select",
-        model: rel.target,
+        model: rel3.target,
         cardinality: "many",
-        where: { kind: "leaf", field: rel.on, op: "in", value: coerced }
+        where: { kind: "leaf", field: rel3.on, op: "in", value: coerced }
       };
       const found = await executeSelect(node, targetModel, { session });
       const byFk = /* @__PURE__ */ new Map();
       for (const t of found)
-        byFk.set(stringKey(t[rel.on]), t);
+        byFk.set(stringKey(t[rel3.on]), t);
       for (const r of rows) {
-        const k = r[rel.refs];
-        r[rel.name] = k == null ? null : byFk.get(stringKey(k)) ?? null;
+        const k = r[rel3.refs];
+        r[rel3.name] = k == null ? null : byFk.get(stringKey(k)) ?? null;
       }
     }
-    async function hydrateMany(rows, rel, parentModel, targetModel, session) {
-      const parentRefs = unique(rows.map((r) => r[rel.refs]).filter(notNull));
+    async function hydrateMany(rows, rel3, parentModel, targetModel, session) {
+      const parentRefs = unique(rows.map((r) => r[rel3.refs]).filter(notNull));
       if (parentRefs.length === 0) {
         for (const r of rows)
-          r[rel.name] = [];
+          r[rel3.name] = [];
         return;
       }
-      const fkDef = (0, coerce_1.getFieldDef)(targetModel, rel.on);
-      const coerced = parentRefs.map((v2) => (0, coerce_1.coerceFieldValue)(fkDef ?? targetModel.fields[rel.on] ?? { kind: "objectId" }, v2));
-      const subNode = mergeNested(rel, { cardinality: "many" });
-      const fkLeaf = { kind: "leaf", field: rel.on, op: "in", value: coerced };
+      const fkDef = (0, coerce_1.getFieldDef)(targetModel, rel3.on);
+      const coerced = parentRefs.map((v2) => (0, coerce_1.coerceFieldValue)(fkDef ?? targetModel.fields[rel3.on] ?? { kind: "objectId" }, v2));
+      const subNode = mergeNested(rel3, { cardinality: "many" });
+      const fkLeaf = { kind: "leaf", field: rel3.on, op: "in", value: coerced };
       const where = subNode.where ? { kind: "and", children: [subNode.where, fkLeaf] } : fkLeaf;
       const node = {
         ...subNode,
         kind: "select",
-        model: rel.target,
+        model: rel3.target,
         cardinality: "many",
         where
       };
       const found = await executeSelect(node, targetModel, { session });
       const byParent = /* @__PURE__ */ new Map();
       for (const t of found) {
-        const k = stringKey(t[rel.on]);
+        const k = stringKey(t[rel3.on]);
         const list = byParent.get(k);
         if (list)
           list.push(t);
@@ -5242,11 +5246,11 @@ var require_execute = __commonJS({
           byParent.set(k, [t]);
       }
       for (const r of rows) {
-        r[rel.name] = byParent.get(stringKey(r[rel.refs])) ?? [];
+        r[rel3.name] = byParent.get(stringKey(r[rel3.refs])) ?? [];
       }
     }
-    function mergeNested(rel, fallback) {
-      const nested = rel.nested ?? {};
+    function mergeNested(rel3, fallback) {
+      const nested = rel3.nested ?? {};
       return {
         where: nested.where ?? fallback.where,
         projection: nested.projection,
@@ -5265,30 +5269,30 @@ var require_execute = __commonJS({
       for (const r of rows)
         r._count = r._count ?? {};
       for (const relName of counts) {
-        const rel = relMap[relName];
-        if (!rel)
+        const rel3 = relMap[relName];
+        if (!rel3)
           continue;
-        const targetModel = schema_1.schema[rel.target];
+        const targetModel = schema_1.schema[rel3.target];
         if (!targetModel)
           continue;
         const coll = client_1.dbClient.db.collection(targetModel.collection);
-        const refs = unique(rows.map((r) => r[rel.refs]).filter(notNull));
-        const fkDef = (0, coerce_1.getFieldDef)(targetModel, rel.on);
-        const coerced = refs.map((v2) => (0, coerce_1.coerceFieldValue)(fkDef ?? targetModel.fields[rel.on] ?? { kind: "objectId" }, v2));
+        const refs = unique(rows.map((r) => r[rel3.refs]).filter(notNull));
+        const fkDef = (0, coerce_1.getFieldDef)(targetModel, rel3.on);
+        const coerced = refs.map((v2) => (0, coerce_1.coerceFieldValue)(fkDef ?? targetModel.fields[rel3.on] ?? { kind: "objectId" }, v2));
         if (coerced.length === 0) {
           for (const row of rows)
             row._count[relName] = 0;
           continue;
         }
         const grouped = await coll.aggregate([
-          { $match: { [(0, coerce_1.appKeyToDbKey)(rel.on)]: { $in: coerced } } },
-          { $group: { _id: `$${(0, coerce_1.appKeyToDbKey)(rel.on)}`, c: { $sum: 1 } } }
+          { $match: { [(0, coerce_1.appKeyToDbKey)(rel3.on)]: { $in: coerced } } },
+          { $group: { _id: `$${(0, coerce_1.appKeyToDbKey)(rel3.on)}`, c: { $sum: 1 } } }
         ], session ? { session } : void 0).toArray();
         const byFk = /* @__PURE__ */ new Map();
         for (const g of grouped)
           byFk.set(stringKey(g._id), g.c);
         for (const row of rows)
-          row._count[relName] = byFk.get(stringKey(row[rel.refs])) ?? 0;
+          row._count[relName] = byFk.get(stringKey(row[rel3.refs])) ?? 0;
       }
     }
     function hasField(model3, fieldName) {
@@ -5333,9 +5337,9 @@ var require_execute = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/adapter.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/adapter.js
 var require_adapter = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/adapter.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/adapter.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m2, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -5553,9 +5557,9 @@ var require_adapter = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/builder/collection.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/builder/collection.js
 var require_collection = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/builder/collection.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/builder/collection.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.DbKnownError = exports.CollectionWrapper = void 0;
@@ -5636,8 +5640,8 @@ var require_collection = __commonJS({
         const keys = new Set(_CollectionWrapper._whereOps);
         for (const fieldName of Object.keys(this.model.fields))
           keys.add(fieldName);
-        for (const rel of Object.keys(this.model.relations()))
-          keys.add(rel);
+        for (const rel3 of Object.keys(this.model.relations()))
+          keys.add(rel3);
         for (const cols of this.model.uniques ?? [])
           keys.add(cols.join("_"));
         this._strictKeysCache = keys;
@@ -6150,63 +6154,63 @@ var require_collection = __commonJS({
           return { scalar: data ?? {}, nested };
         const rels = this.model.relations();
         for (const key of Object.keys(data)) {
-          const rel = rels[key];
+          const rel3 = rels[key];
           const value = data[key];
-          if (!rel) {
+          if (!rel3) {
             scalar[key] = value;
             continue;
           }
           if (value == null)
             continue;
-          if (rel.kind === "one" && !rel.inverse) {
+          if (rel3.kind === "one" && !rel3.inverse) {
             if (typeof value !== "object")
               continue;
             if ("connect" in value && value.connect) {
               const target = value.connect;
-              const fk = target[rel.refs] ?? target.id ?? target._id;
+              const fk = target[rel3.refs] ?? target.id ?? target._id;
               if (fk !== void 0)
-                scalar[rel.on] = fk;
+                scalar[rel3.on] = fk;
             } else if ("connectOrCreate" in value && value.connectOrCreate) {
-              nested.push({ rel, op: "connectOrCreate", data: value.connectOrCreate });
+              nested.push({ rel: rel3, op: "connectOrCreate", data: value.connectOrCreate });
             } else if ("disconnect" in value && value.disconnect === true) {
-              scalar[rel.on] = null;
+              scalar[rel3.on] = null;
             } else if ("create" in value && value.create) {
-              nested.push({ rel, op: "create", data: value.create });
+              nested.push({ rel: rel3, op: "create", data: value.create });
             }
             continue;
           }
           if (typeof value !== "object")
             continue;
           if (value.create)
-            nested.push({ rel, op: "create", data: value.create });
+            nested.push({ rel: rel3, op: "create", data: value.create });
           if (value.createMany?.data)
-            nested.push({ rel, op: "createMany", data: value.createMany.data });
+            nested.push({ rel: rel3, op: "createMany", data: value.createMany.data });
           if (value.connect)
-            nested.push({ rel, op: "connect", data: value.connect });
+            nested.push({ rel: rel3, op: "connect", data: value.connect });
           if (value.connectOrCreate)
-            nested.push({ rel, op: "connectOrCreate", data: value.connectOrCreate });
+            nested.push({ rel: rel3, op: "connectOrCreate", data: value.connectOrCreate });
           if (value.disconnect)
-            nested.push({ rel, op: "disconnect", data: value.disconnect });
+            nested.push({ rel: rel3, op: "disconnect", data: value.disconnect });
           if (value.set)
-            nested.push({ rel, op: "set", data: value.set });
+            nested.push({ rel: rel3, op: "set", data: value.set });
           if (value.delete)
-            nested.push({ rel, op: "delete", data: value.delete });
+            nested.push({ rel: rel3, op: "delete", data: value.delete });
           if (value.deleteMany)
-            nested.push({ rel, op: "deleteMany", data: value.deleteMany });
+            nested.push({ rel: rel3, op: "deleteMany", data: value.deleteMany });
         }
         return { scalar, nested };
       }
       async _applyNestedWrites(parentDoc, nested) {
         for (const spec of nested) {
-          const { rel, op } = spec;
-          const target = schema_1.schema[rel.target];
+          const { rel: rel3, op } = spec;
+          const target = schema_1.schema[rel3.target];
           if (!target) {
-            throw new Error(`[Database] nested write target '${rel.target}' is not in the schema map`);
+            throw new Error(`[Database] nested write target '${rel3.target}' is not in the schema map`);
           }
           const targetWrapper = new _CollectionWrapper(target, this._session, this._adapter, this._strict);
-          const parentRef = rel.refs === "id" ? parentDoc._id ?? parentDoc.id : parentDoc[rel.refs];
+          const parentRef = rel3.refs === "id" ? parentDoc._id ?? parentDoc.id : parentDoc[rel3.refs];
           const fkValue = parentRef && typeof parentRef === "object" && "toString" in parentRef ? parentRef.toString() : parentRef;
-          const childFkField = rel.on;
+          const childFkField = rel3.on;
           if (op === "create") {
             const item = Array.isArray(spec.data) ? spec.data : [spec.data];
             for (const d2 of item) {
@@ -6225,7 +6229,7 @@ var require_collection = __commonJS({
           if (op === "connect") {
             const targets = Array.isArray(spec.data) ? spec.data : [spec.data];
             for (const t of targets) {
-              const tId = t[rel.refs] ?? t.id ?? t._id;
+              const tId = t[rel3.refs] ?? t.id ?? t._id;
               if (tId == null)
                 continue;
               await targetWrapper.update({
@@ -6238,7 +6242,7 @@ var require_collection = __commonJS({
           if (op === "disconnect") {
             const targets = Array.isArray(spec.data) ? spec.data : [spec.data];
             for (const t of targets) {
-              const tId = t[rel.refs] ?? t.id ?? t._id;
+              const tId = t[rel3.refs] ?? t.id ?? t._id;
               if (tId == null)
                 continue;
               await targetWrapper.update({
@@ -6266,10 +6270,10 @@ var require_collection = __commonJS({
                 continue;
               let existing = await targetWrapper.findFirst({ where: it2.where });
               if (!existing) {
-                const createData = rel.inverse ? { ...it2.create ?? {}, [childFkField]: fkValue } : it2.create ?? {};
+                const createData = rel3.inverse ? { ...it2.create ?? {}, [childFkField]: fkValue } : it2.create ?? {};
                 existing = await targetWrapper.create({ data: createData });
-              } else if (rel.inverse) {
-                const tId = existing[rel.refs] ?? existing.id ?? existing._id;
+              } else if (rel3.inverse) {
+                const tId = existing[rel3.refs] ?? existing.id ?? existing._id;
                 if (existing[childFkField] !== fkValue) {
                   await targetWrapper.update({
                     where: { id: tId },
@@ -6277,14 +6281,14 @@ var require_collection = __commonJS({
                   });
                 }
               } else {
-                const tId = existing[rel.refs] ?? existing.id ?? existing._id;
-                parentDoc[rel.on] = tId;
+                const tId = existing[rel3.refs] ?? existing.id ?? existing._id;
+                parentDoc[rel3.on] = tId;
               }
             }
-            if (!rel.inverse && parentDoc._id && parentDoc[rel.on] != null) {
+            if (!rel3.inverse && parentDoc._id && parentDoc[rel3.on] != null) {
               await this.update({
                 where: { id: parentDoc._id ?? parentDoc.id },
-                data: { [rel.on]: parentDoc[rel.on] }
+                data: { [rel3.on]: parentDoc[rel3.on] }
               });
             }
             continue;
@@ -6334,9 +6338,9 @@ var require_collection = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/client.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/client.js
 var require_client2 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/client.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/client.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.dbClient = void 0;
@@ -6347,9 +6351,9 @@ var require_client2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/postgres/errors.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/postgres/errors.js
 var require_errors2 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/postgres/errors.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/postgres/errors.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.DbKnownError = void 0;
@@ -6424,9 +6428,9 @@ var require_errors2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/shared/haversine.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/shared/haversine.js
 var require_haversine = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/shared/haversine.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/shared/haversine.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.pointInRing = pointInRing;
@@ -6578,9 +6582,9 @@ var require_haversine = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/postgres/execute.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/postgres/execute.js
 var require_execute2 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/postgres/execute.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/postgres/execute.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m2, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -6705,86 +6709,86 @@ var require_execute2 = __commonJS({
     async function hydrate(exec, rows, parentModel, hydration) {
       if (rows.length === 0)
         return;
-      for (const rel of hydration) {
-        const targetModel = schema_1.schema[rel.target];
+      for (const rel3 of hydration) {
+        const targetModel = schema_1.schema[rel3.target];
         if (!targetModel)
           continue;
-        const isOwningOne = rel.kind === "one" && parentModel.fields[rel.on] != null;
+        const isOwningOne = rel3.kind === "one" && parentModel.fields[rel3.on] != null;
         if (isOwningOne)
-          await hydrateOwningOne(exec, rows, rel, targetModel);
-        else if (rel.kind === "one")
-          await hydrateInverseOne(exec, rows, rel, targetModel);
+          await hydrateOwningOne(exec, rows, rel3, targetModel);
+        else if (rel3.kind === "one")
+          await hydrateInverseOne(exec, rows, rel3, targetModel);
         else
-          await hydrateMany(exec, rows, rel, targetModel);
+          await hydrateMany(exec, rows, rel3, targetModel);
       }
     }
-    async function hydrateOwningOne(exec, rows, rel, targetModel) {
-      const fks = unique(rows.map((r) => r[rel.on]).filter(notNull));
+    async function hydrateOwningOne(exec, rows, rel3, targetModel) {
+      const fks = unique(rows.map((r) => r[rel3.on]).filter(notNull));
       if (fks.length === 0) {
         for (const r of rows)
-          r[rel.name] = null;
+          r[rel3.name] = null;
         return;
       }
       const subNode = {
         kind: "select",
-        model: rel.target,
+        model: rel3.target,
         cardinality: "many",
-        where: { kind: "leaf", field: rel.refs, op: "in", value: fks },
-        ...rel.nested ?? {}
+        where: { kind: "leaf", field: rel3.refs, op: "in", value: fks },
+        ...rel3.nested ?? {}
       };
       const found = await executePgSelect(exec, subNode, targetModel);
       const byRef = /* @__PURE__ */ new Map();
       for (const t of found)
-        byRef.set(stringKey(t[rel.refs]), t);
+        byRef.set(stringKey(t[rel3.refs]), t);
       for (const r of rows) {
-        const k = r[rel.on];
-        r[rel.name] = k == null ? null : byRef.get(stringKey(k)) ?? null;
+        const k = r[rel3.on];
+        r[rel3.name] = k == null ? null : byRef.get(stringKey(k)) ?? null;
       }
     }
-    async function hydrateInverseOne(exec, rows, rel, targetModel) {
-      const refs = unique(rows.map((r) => r[rel.refs]).filter(notNull));
+    async function hydrateInverseOne(exec, rows, rel3, targetModel) {
+      const refs = unique(rows.map((r) => r[rel3.refs]).filter(notNull));
       if (refs.length === 0) {
         for (const r of rows)
-          r[rel.name] = null;
+          r[rel3.name] = null;
         return;
       }
       const subNode = {
         kind: "select",
-        model: rel.target,
+        model: rel3.target,
         cardinality: "many",
-        where: { kind: "leaf", field: rel.on, op: "in", value: refs },
-        ...rel.nested ?? {}
+        where: { kind: "leaf", field: rel3.on, op: "in", value: refs },
+        ...rel3.nested ?? {}
       };
       const found = await executePgSelect(exec, subNode, targetModel);
       const byFk = /* @__PURE__ */ new Map();
       for (const t of found)
-        byFk.set(stringKey(t[rel.on]), t);
+        byFk.set(stringKey(t[rel3.on]), t);
       for (const r of rows) {
-        const k = r[rel.refs];
-        r[rel.name] = k == null ? null : byFk.get(stringKey(k)) ?? null;
+        const k = r[rel3.refs];
+        r[rel3.name] = k == null ? null : byFk.get(stringKey(k)) ?? null;
       }
     }
-    async function hydrateMany(exec, rows, rel, targetModel) {
-      const refs = unique(rows.map((r) => r[rel.refs]).filter(notNull));
+    async function hydrateMany(exec, rows, rel3, targetModel) {
+      const refs = unique(rows.map((r) => r[rel3.refs]).filter(notNull));
       if (refs.length === 0) {
         for (const r of rows)
-          r[rel.name] = [];
+          r[rel3.name] = [];
         return;
       }
-      const nestedWhere = rel.nested?.where;
-      const fkLeaf = { kind: "leaf", field: rel.on, op: "in", value: refs };
+      const nestedWhere = rel3.nested?.where;
+      const fkLeaf = { kind: "leaf", field: rel3.on, op: "in", value: refs };
       const where = nestedWhere ? { kind: "and", children: [nestedWhere, fkLeaf] } : fkLeaf;
       const subNode = {
         kind: "select",
-        model: rel.target,
+        model: rel3.target,
         cardinality: "many",
-        ...rel.nested ?? {},
+        ...rel3.nested ?? {},
         where
       };
       const found = await executePgSelect(exec, subNode, targetModel);
       const byParent = /* @__PURE__ */ new Map();
       for (const t of found) {
-        const k = stringKey(t[rel.on]);
+        const k = stringKey(t[rel3.on]);
         const list = byParent.get(k);
         if (list)
           list.push(t);
@@ -6792,7 +6796,7 @@ var require_execute2 = __commonJS({
           byParent.set(k, [t]);
       }
       for (const r of rows)
-        r[rel.name] = byParent.get(stringKey(r[rel.refs])) ?? [];
+        r[rel3.name] = byParent.get(stringKey(r[rel3.refs])) ?? [];
     }
     async function applyRelationCounts(exec, rows, parentModel, counts) {
       if (rows.length === 0)
@@ -6801,25 +6805,25 @@ var require_execute2 = __commonJS({
       for (const r of rows)
         r._count = r._count ?? {};
       for (const relName of counts) {
-        const rel = relMap[relName];
-        if (!rel)
+        const rel3 = relMap[relName];
+        if (!rel3)
           continue;
-        const targetModel = schema_1.schema[rel.target];
+        const targetModel = schema_1.schema[rel3.target];
         if (!targetModel)
           continue;
-        const refs = unique(rows.map((r) => r[rel.refs]).filter(notNull));
+        const refs = unique(rows.map((r) => r[rel3.refs]).filter(notNull));
         if (refs.length === 0) {
           for (const row of rows)
             row._count[relName] = 0;
           continue;
         }
-        const sql = `SELECT "${rel.on}" AS fk, COUNT(*)::bigint AS c FROM "${targetModel.collection}" WHERE "${rel.on}" = ANY($1) GROUP BY "${rel.on}"`;
+        const sql = `SELECT "${rel3.on}" AS fk, COUNT(*)::bigint AS c FROM "${targetModel.collection}" WHERE "${rel3.on}" = ANY($1) GROUP BY "${rel3.on}"`;
         const { rows: groups } = await exec.query(sql, [refs]);
         const byFk = /* @__PURE__ */ new Map();
         for (const g of groups)
           byFk.set(stringKey(g.fk), Number(g.c));
         for (const row of rows)
-          row._count[relName] = byFk.get(stringKey(row[rel.refs])) ?? 0;
+          row._count[relName] = byFk.get(stringKey(row[rel3.refs])) ?? 0;
       }
     }
     function notNull(v2) {
@@ -6857,9 +6861,9 @@ var require_execute2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/postgres/driver.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/postgres/driver.js
 var require_driver = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/postgres/driver.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/postgres/driver.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.pgDriver = pgDriver2;
@@ -6942,9 +6946,9 @@ var require_driver = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/postgres/introspect.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/postgres/introspect.js
 var require_introspect = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/postgres/introspect.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/postgres/introspect.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.introspectPg = introspectPg;
@@ -7076,9 +7080,9 @@ var require_introspect = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/raw-sql.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/raw-sql.js
 var require_raw_sql = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/raw-sql.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/raw-sql.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.forgeSql = void 0;
@@ -7148,9 +7152,9 @@ var require_raw_sql = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/postgres/adapter.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/postgres/adapter.js
 var require_adapter2 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/postgres/adapter.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/postgres/adapter.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m2, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -7366,9 +7370,9 @@ var require_adapter2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mysql/errors.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mysql/errors.js
 var require_errors3 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mysql/errors.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mysql/errors.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.DbKnownError = void 0;
@@ -7433,9 +7437,9 @@ var require_errors3 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mysql/execute.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mysql/execute.js
 var require_execute3 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mysql/execute.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mysql/execute.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m2, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -7640,34 +7644,34 @@ var require_execute3 = __commonJS({
     async function hydrate(pool, opts, rows, parentModel, hydration) {
       if (rows.length === 0)
         return;
-      for (const rel of hydration) {
-        const targetModel = schema_1.schema[rel.target];
+      for (const rel3 of hydration) {
+        const targetModel = schema_1.schema[rel3.target];
         if (!targetModel)
           continue;
-        const isOwningOne = rel.kind === "one" && parentModel.fields[rel.on] != null;
+        const isOwningOne = rel3.kind === "one" && parentModel.fields[rel3.on] != null;
         if (isOwningOne)
-          await hydrateOne(pool, opts, rows, rel, targetModel, true);
-        else if (rel.kind === "one")
-          await hydrateOne(pool, opts, rows, rel, targetModel, false);
+          await hydrateOne(pool, opts, rows, rel3, targetModel, true);
+        else if (rel3.kind === "one")
+          await hydrateOne(pool, opts, rows, rel3, targetModel, false);
         else
-          await hydrateMany(pool, opts, rows, rel, targetModel);
+          await hydrateMany(pool, opts, rows, rel3, targetModel);
       }
     }
-    async function hydrateOne(pool, opts, rows, rel, targetModel, owning) {
-      const fromField = owning ? rel.on : rel.refs;
-      const toField = owning ? rel.refs : rel.on;
+    async function hydrateOne(pool, opts, rows, rel3, targetModel, owning) {
+      const fromField = owning ? rel3.on : rel3.refs;
+      const toField = owning ? rel3.refs : rel3.on;
       const fks = unique(rows.map((r) => r[fromField]).filter((v2) => v2 != null));
       if (fks.length === 0) {
         for (const r of rows)
-          r[rel.name] = null;
+          r[rel3.name] = null;
         return;
       }
       const subNode = {
         kind: "select",
-        model: rel.target,
+        model: rel3.target,
         cardinality: "many",
         where: { kind: "leaf", field: toField, op: "in", value: fks },
-        ...rel.nested ?? {}
+        ...rel3.nested ?? {}
       };
       const found = await executeMysqlSelect(pool, subNode, targetModel, opts);
       const byKey = /* @__PURE__ */ new Map();
@@ -7675,30 +7679,30 @@ var require_execute3 = __commonJS({
         byKey.set(String(t[toField]), t);
       for (const r of rows) {
         const k = r[fromField];
-        r[rel.name] = k == null ? null : byKey.get(String(k)) ?? null;
+        r[rel3.name] = k == null ? null : byKey.get(String(k)) ?? null;
       }
     }
-    async function hydrateMany(pool, opts, rows, rel, targetModel) {
-      const refs = unique(rows.map((r) => r[rel.refs]).filter((v2) => v2 != null));
+    async function hydrateMany(pool, opts, rows, rel3, targetModel) {
+      const refs = unique(rows.map((r) => r[rel3.refs]).filter((v2) => v2 != null));
       if (refs.length === 0) {
         for (const r of rows)
-          r[rel.name] = [];
+          r[rel3.name] = [];
         return;
       }
-      const nestedWhere = rel.nested?.where;
-      const fkLeaf = { kind: "leaf", field: rel.on, op: "in", value: refs };
+      const nestedWhere = rel3.nested?.where;
+      const fkLeaf = { kind: "leaf", field: rel3.on, op: "in", value: refs };
       const where = nestedWhere ? { kind: "and", children: [nestedWhere, fkLeaf] } : fkLeaf;
       const subNode = {
         kind: "select",
-        model: rel.target,
+        model: rel3.target,
         cardinality: "many",
-        ...rel.nested ?? {},
+        ...rel3.nested ?? {},
         where
       };
       const found = await executeMysqlSelect(pool, subNode, targetModel, opts);
       const byParent = /* @__PURE__ */ new Map();
       for (const t of found) {
-        const k = String(t[rel.on]);
+        const k = String(t[rel3.on]);
         const list = byParent.get(k);
         if (list)
           list.push(t);
@@ -7706,7 +7710,7 @@ var require_execute3 = __commonJS({
           byParent.set(k, [t]);
       }
       for (const r of rows)
-        r[rel.name] = byParent.get(String(r[rel.refs])) ?? [];
+        r[rel3.name] = byParent.get(String(r[rel3.refs])) ?? [];
     }
     async function applyRelationCounts(exec, rows, parentModel, counts) {
       if (rows.length === 0)
@@ -7715,26 +7719,26 @@ var require_execute3 = __commonJS({
       for (const r of rows)
         r._count = r._count ?? {};
       for (const relName of counts) {
-        const rel = relMap[relName];
-        if (!rel)
+        const rel3 = relMap[relName];
+        if (!rel3)
           continue;
-        const targetModel = schema_1.schema[rel.target];
+        const targetModel = schema_1.schema[rel3.target];
         if (!targetModel)
           continue;
-        const refs = unique(rows.map((r) => r[rel.refs]).filter((v2) => v2 != null));
+        const refs = unique(rows.map((r) => r[rel3.refs]).filter((v2) => v2 != null));
         if (refs.length === 0) {
           for (const r of rows)
             r._count[relName] = 0;
           continue;
         }
         const placeholders = refs.map(() => "?").join(",");
-        const sql = `SELECT \`${rel.on}\` AS fk, COUNT(*) AS c FROM \`${targetModel.collection}\` WHERE \`${rel.on}\` IN (${placeholders}) GROUP BY \`${rel.on}\``;
+        const sql = `SELECT \`${rel3.on}\` AS fk, COUNT(*) AS c FROM \`${targetModel.collection}\` WHERE \`${rel3.on}\` IN (${placeholders}) GROUP BY \`${rel3.on}\``;
         const [groups] = await (0, errors_1.withMysqlErrors)(() => exec.query(sql, refs));
         const byFk = /* @__PURE__ */ new Map();
         for (const g of groups)
           byFk.set(String(g.fk), Number(g.c));
         for (const r of rows)
-          r._count[relName] = byFk.get(String(r[rel.refs])) ?? 0;
+          r._count[relName] = byFk.get(String(r[rel3.refs])) ?? 0;
       }
     }
     function unique(arr) {
@@ -7764,9 +7768,9 @@ var require_execute3 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mysql/driver.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mysql/driver.js
 var require_driver2 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mysql/driver.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mysql/driver.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.mysql2Driver = mysql2Driver;
@@ -7871,9 +7875,9 @@ var require_driver2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mysql/introspect.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mysql/introspect.js
 var require_introspect2 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mysql/introspect.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mysql/introspect.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.introspectMysql = introspectMysql;
@@ -7961,9 +7965,9 @@ var require_introspect2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mysql/adapter.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mysql/adapter.js
 var require_adapter3 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mysql/adapter.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mysql/adapter.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m2, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -8190,9 +8194,9 @@ var require_adapter3 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/errors.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/errors.js
 var require_errors4 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/errors.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/errors.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.DbKnownError = void 0;
@@ -8245,9 +8249,9 @@ var require_errors4 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/execute.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/execute.js
 var require_execute4 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/execute.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/execute.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m2, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -8432,48 +8436,48 @@ var require_execute4 = __commonJS({
     async function hydrate(db, rows, parentModel, hydration) {
       if (rows.length === 0)
         return;
-      for (const rel of hydration) {
-        const targetModel = schema_1.schema[rel.target];
+      for (const rel3 of hydration) {
+        const targetModel = schema_1.schema[rel3.target];
         if (!targetModel)
           continue;
-        const isOwningOne = rel.kind === "one" && parentModel.fields[rel.on] != null;
+        const isOwningOne = rel3.kind === "one" && parentModel.fields[rel3.on] != null;
         if (isOwningOne)
           await hydrateOne(
             db,
             rows,
-            rel,
+            rel3,
             targetModel,
             /*owning*/
             true
           );
-        else if (rel.kind === "one")
+        else if (rel3.kind === "one")
           await hydrateOne(
             db,
             rows,
-            rel,
+            rel3,
             targetModel,
             /*owning*/
             false
           );
         else
-          await hydrateMany(db, rows, rel, targetModel);
+          await hydrateMany(db, rows, rel3, targetModel);
       }
     }
-    async function hydrateOne(db, rows, rel, targetModel, owning) {
-      const fromField = owning ? rel.on : rel.refs;
-      const toField = owning ? rel.refs : rel.on;
+    async function hydrateOne(db, rows, rel3, targetModel, owning) {
+      const fromField = owning ? rel3.on : rel3.refs;
+      const toField = owning ? rel3.refs : rel3.on;
       const fks = unique(rows.map((r) => r[fromField]).filter((v2) => v2 != null));
       if (fks.length === 0) {
         for (const r of rows)
-          r[rel.name] = null;
+          r[rel3.name] = null;
         return;
       }
       const subNode = {
         kind: "select",
-        model: rel.target,
+        model: rel3.target,
         cardinality: "many",
         where: { kind: "leaf", field: toField, op: "in", value: fks },
-        ...rel.nested ?? {}
+        ...rel3.nested ?? {}
       };
       const found = await executeSqliteSelect(db, subNode, targetModel);
       const byKey = /* @__PURE__ */ new Map();
@@ -8481,30 +8485,30 @@ var require_execute4 = __commonJS({
         byKey.set(String(t[toField]), t);
       for (const r of rows) {
         const k = r[fromField];
-        r[rel.name] = k == null ? null : byKey.get(String(k)) ?? null;
+        r[rel3.name] = k == null ? null : byKey.get(String(k)) ?? null;
       }
     }
-    async function hydrateMany(db, rows, rel, targetModel) {
-      const refs = unique(rows.map((r) => r[rel.refs]).filter((v2) => v2 != null));
+    async function hydrateMany(db, rows, rel3, targetModel) {
+      const refs = unique(rows.map((r) => r[rel3.refs]).filter((v2) => v2 != null));
       if (refs.length === 0) {
         for (const r of rows)
-          r[rel.name] = [];
+          r[rel3.name] = [];
         return;
       }
-      const nestedWhere = rel.nested?.where;
-      const fkLeaf = { kind: "leaf", field: rel.on, op: "in", value: refs };
+      const nestedWhere = rel3.nested?.where;
+      const fkLeaf = { kind: "leaf", field: rel3.on, op: "in", value: refs };
       const where = nestedWhere ? { kind: "and", children: [nestedWhere, fkLeaf] } : fkLeaf;
       const subNode = {
         kind: "select",
-        model: rel.target,
+        model: rel3.target,
         cardinality: "many",
-        ...rel.nested ?? {},
+        ...rel3.nested ?? {},
         where
       };
       const found = await executeSqliteSelect(db, subNode, targetModel);
       const byParent = /* @__PURE__ */ new Map();
       for (const t of found) {
-        const k = String(t[rel.on]);
+        const k = String(t[rel3.on]);
         const list = byParent.get(k);
         if (list)
           list.push(t);
@@ -8512,7 +8516,7 @@ var require_execute4 = __commonJS({
           byParent.set(k, [t]);
       }
       for (const r of rows)
-        r[rel.name] = byParent.get(String(r[rel.refs])) ?? [];
+        r[rel3.name] = byParent.get(String(r[rel3.refs])) ?? [];
     }
     async function applyRelationCounts(db, rows, parentModel, counts) {
       if (rows.length === 0)
@@ -8521,26 +8525,26 @@ var require_execute4 = __commonJS({
       for (const r of rows)
         r._count = r._count ?? {};
       for (const relName of counts) {
-        const rel = relMap[relName];
-        if (!rel)
+        const rel3 = relMap[relName];
+        if (!rel3)
           continue;
-        const targetModel = schema_1.schema[rel.target];
+        const targetModel = schema_1.schema[rel3.target];
         if (!targetModel)
           continue;
-        const refs = unique(rows.map((r) => r[rel.refs]).filter((v2) => v2 != null));
+        const refs = unique(rows.map((r) => r[rel3.refs]).filter((v2) => v2 != null));
         if (refs.length === 0) {
           for (const r of rows)
             r._count[relName] = 0;
           continue;
         }
         const placeholders = refs.map(() => "?").join(", ");
-        const sql = `SELECT "${rel.on}" AS fk, COUNT(*) AS c FROM "${targetModel.collection}" WHERE "${rel.on}" IN (${placeholders}) GROUP BY "${rel.on}"`;
+        const sql = `SELECT "${rel3.on}" AS fk, COUNT(*) AS c FROM "${targetModel.collection}" WHERE "${rel3.on}" IN (${placeholders}) GROUP BY "${rel3.on}"`;
         const groups = await (0, errors_1.withSqliteErrors)(() => db.all(sql, encodeParams(refs)));
         const byFk = /* @__PURE__ */ new Map();
         for (const g of groups)
           byFk.set(String(g.fk), Number(g.c));
         for (const r of rows)
-          r._count[relName] = byFk.get(String(r[rel.refs])) ?? 0;
+          r._count[relName] = byFk.get(String(r[rel3.refs])) ?? 0;
       }
     }
     function unique(arr) {
@@ -8570,9 +8574,9 @@ var require_execute4 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/driver.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/driver.js
 var require_driver3 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/driver.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/driver.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.betterSqlite3Driver = betterSqlite3Driver;
@@ -8701,9 +8705,9 @@ var require_driver3 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/introspect.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/introspect.js
 var require_introspect3 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/introspect.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/introspect.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.introspectSqlite = introspectSqlite;
@@ -8746,9 +8750,9 @@ var require_introspect3 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/adapter.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/adapter.js
 var require_adapter4 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/adapter.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/adapter.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m2, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -9016,9 +9020,9 @@ var require_adapter4 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/duckdb/errors.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/duckdb/errors.js
 var require_errors5 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/duckdb/errors.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/duckdb/errors.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.DbKnownError = void 0;
@@ -9073,9 +9077,9 @@ var require_errors5 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/duckdb/execute.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/duckdb/execute.js
 var require_execute5 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/duckdb/execute.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/duckdb/execute.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m2, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -9200,86 +9204,86 @@ var require_execute5 = __commonJS({
     async function hydrate(exec, rows, parentModel, hydration) {
       if (rows.length === 0)
         return;
-      for (const rel of hydration) {
-        const targetModel = schema_1.schema[rel.target];
+      for (const rel3 of hydration) {
+        const targetModel = schema_1.schema[rel3.target];
         if (!targetModel)
           continue;
-        const isOwningOne = rel.kind === "one" && parentModel.fields[rel.on] != null;
+        const isOwningOne = rel3.kind === "one" && parentModel.fields[rel3.on] != null;
         if (isOwningOne)
-          await hydrateOwningOne(exec, rows, rel, targetModel);
-        else if (rel.kind === "one")
-          await hydrateInverseOne(exec, rows, rel, targetModel);
+          await hydrateOwningOne(exec, rows, rel3, targetModel);
+        else if (rel3.kind === "one")
+          await hydrateInverseOne(exec, rows, rel3, targetModel);
         else
-          await hydrateMany(exec, rows, rel, targetModel);
+          await hydrateMany(exec, rows, rel3, targetModel);
       }
     }
-    async function hydrateOwningOne(exec, rows, rel, targetModel) {
-      const fks = unique(rows.map((r) => r[rel.on]).filter(notNull));
+    async function hydrateOwningOne(exec, rows, rel3, targetModel) {
+      const fks = unique(rows.map((r) => r[rel3.on]).filter(notNull));
       if (fks.length === 0) {
         for (const r of rows)
-          r[rel.name] = null;
+          r[rel3.name] = null;
         return;
       }
       const subNode = {
         kind: "select",
-        model: rel.target,
+        model: rel3.target,
         cardinality: "many",
-        where: { kind: "leaf", field: rel.refs, op: "in", value: fks },
-        ...rel.nested ?? {}
+        where: { kind: "leaf", field: rel3.refs, op: "in", value: fks },
+        ...rel3.nested ?? {}
       };
       const found = await executeDuckdbSelect(exec, subNode, targetModel);
       const byRef = /* @__PURE__ */ new Map();
       for (const t of found)
-        byRef.set(stringKey(t[rel.refs]), t);
+        byRef.set(stringKey(t[rel3.refs]), t);
       for (const r of rows) {
-        const k = r[rel.on];
-        r[rel.name] = k == null ? null : byRef.get(stringKey(k)) ?? null;
+        const k = r[rel3.on];
+        r[rel3.name] = k == null ? null : byRef.get(stringKey(k)) ?? null;
       }
     }
-    async function hydrateInverseOne(exec, rows, rel, targetModel) {
-      const refs = unique(rows.map((r) => r[rel.refs]).filter(notNull));
+    async function hydrateInverseOne(exec, rows, rel3, targetModel) {
+      const refs = unique(rows.map((r) => r[rel3.refs]).filter(notNull));
       if (refs.length === 0) {
         for (const r of rows)
-          r[rel.name] = null;
+          r[rel3.name] = null;
         return;
       }
       const subNode = {
         kind: "select",
-        model: rel.target,
+        model: rel3.target,
         cardinality: "many",
-        where: { kind: "leaf", field: rel.on, op: "in", value: refs },
-        ...rel.nested ?? {}
+        where: { kind: "leaf", field: rel3.on, op: "in", value: refs },
+        ...rel3.nested ?? {}
       };
       const found = await executeDuckdbSelect(exec, subNode, targetModel);
       const byFk = /* @__PURE__ */ new Map();
       for (const t of found)
-        byFk.set(stringKey(t[rel.on]), t);
+        byFk.set(stringKey(t[rel3.on]), t);
       for (const r of rows) {
-        const k = r[rel.refs];
-        r[rel.name] = k == null ? null : byFk.get(stringKey(k)) ?? null;
+        const k = r[rel3.refs];
+        r[rel3.name] = k == null ? null : byFk.get(stringKey(k)) ?? null;
       }
     }
-    async function hydrateMany(exec, rows, rel, targetModel) {
-      const refs = unique(rows.map((r) => r[rel.refs]).filter(notNull));
+    async function hydrateMany(exec, rows, rel3, targetModel) {
+      const refs = unique(rows.map((r) => r[rel3.refs]).filter(notNull));
       if (refs.length === 0) {
         for (const r of rows)
-          r[rel.name] = [];
+          r[rel3.name] = [];
         return;
       }
-      const nestedWhere = rel.nested?.where;
-      const fkLeaf = { kind: "leaf", field: rel.on, op: "in", value: refs };
+      const nestedWhere = rel3.nested?.where;
+      const fkLeaf = { kind: "leaf", field: rel3.on, op: "in", value: refs };
       const where = nestedWhere ? { kind: "and", children: [nestedWhere, fkLeaf] } : fkLeaf;
       const subNode = {
         kind: "select",
-        model: rel.target,
+        model: rel3.target,
         cardinality: "many",
-        ...rel.nested ?? {},
+        ...rel3.nested ?? {},
         where
       };
       const found = await executeDuckdbSelect(exec, subNode, targetModel);
       const byParent = /* @__PURE__ */ new Map();
       for (const t of found) {
-        const k = stringKey(t[rel.on]);
+        const k = stringKey(t[rel3.on]);
         const list = byParent.get(k);
         if (list)
           list.push(t);
@@ -9287,7 +9291,7 @@ var require_execute5 = __commonJS({
           byParent.set(k, [t]);
       }
       for (const r of rows)
-        r[rel.name] = byParent.get(stringKey(r[rel.refs])) ?? [];
+        r[rel3.name] = byParent.get(stringKey(r[rel3.refs])) ?? [];
     }
     async function applyRelationCounts(exec, rows, parentModel, counts) {
       if (rows.length === 0)
@@ -9296,25 +9300,25 @@ var require_execute5 = __commonJS({
       for (const r of rows)
         r._count = r._count ?? {};
       for (const relName of counts) {
-        const rel = relMap[relName];
-        if (!rel)
+        const rel3 = relMap[relName];
+        if (!rel3)
           continue;
-        const targetModel = schema_1.schema[rel.target];
+        const targetModel = schema_1.schema[rel3.target];
         if (!targetModel)
           continue;
-        const refs = unique(rows.map((r) => r[rel.refs]).filter(notNull));
+        const refs = unique(rows.map((r) => r[rel3.refs]).filter(notNull));
         if (refs.length === 0) {
           for (const row of rows)
             row._count[relName] = 0;
           continue;
         }
-        const sql = `SELECT "${rel.on}" AS fk, CAST(COUNT(*) AS BIGINT) AS c FROM "${targetModel.collection}" WHERE "${rel.on}" = ANY($1) GROUP BY "${rel.on}"`;
+        const sql = `SELECT "${rel3.on}" AS fk, CAST(COUNT(*) AS BIGINT) AS c FROM "${targetModel.collection}" WHERE "${rel3.on}" = ANY($1) GROUP BY "${rel3.on}"`;
         const { rows: groups } = await exec.query(sql, [refs]);
         const byFk = /* @__PURE__ */ new Map();
         for (const g of groups)
           byFk.set(stringKey(g.fk), Number(g.c));
         for (const row of rows)
-          row._count[relName] = byFk.get(stringKey(row[rel.refs])) ?? 0;
+          row._count[relName] = byFk.get(stringKey(row[rel3.refs])) ?? 0;
       }
     }
     function notNull(v2) {
@@ -9352,9 +9356,9 @@ var require_execute5 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/duckdb/driver.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/duckdb/driver.js
 var require_driver4 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/duckdb/driver.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/duckdb/driver.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.duckdbDriver = duckdbDriver;
@@ -9413,9 +9417,9 @@ var require_driver4 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/duckdb/introspect.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/duckdb/introspect.js
 var require_introspect4 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/duckdb/introspect.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/duckdb/introspect.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.introspectDuckdb = introspectDuckdb;
@@ -9488,9 +9492,9 @@ var require_introspect4 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/duckdb/adapter.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/duckdb/adapter.js
 var require_adapter5 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/duckdb/adapter.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/duckdb/adapter.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m2, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -9676,9 +9680,9 @@ var require_adapter5 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mssql/errors.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mssql/errors.js
 var require_errors6 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mssql/errors.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mssql/errors.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.DbKnownError = void 0;
@@ -9729,9 +9733,9 @@ var require_errors6 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mssql/execute.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mssql/execute.js
 var require_execute6 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mssql/execute.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mssql/execute.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m2, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -9851,68 +9855,68 @@ var require_execute6 = __commonJS({
     async function hydrate(exec, rows, parentModel, hydration) {
       if (rows.length === 0)
         return;
-      for (const rel of hydration) {
-        const targetModel = schema_1.schema[rel.target];
+      for (const rel3 of hydration) {
+        const targetModel = schema_1.schema[rel3.target];
         if (!targetModel)
           continue;
-        const isOwningOne = rel.kind === "one" && parentModel.fields[rel.on] != null;
+        const isOwningOne = rel3.kind === "one" && parentModel.fields[rel3.on] != null;
         if (isOwningOne)
-          await hydrateOwningOne(exec, rows, rel, targetModel);
-        else if (rel.kind === "one")
-          await hydrateInverseOne(exec, rows, rel, targetModel);
+          await hydrateOwningOne(exec, rows, rel3, targetModel);
+        else if (rel3.kind === "one")
+          await hydrateInverseOne(exec, rows, rel3, targetModel);
         else
-          await hydrateMany(exec, rows, rel, targetModel);
+          await hydrateMany(exec, rows, rel3, targetModel);
       }
     }
-    async function hydrateOwningOne(exec, rows, rel, targetModel) {
-      const fks = unique(rows.map((r) => r[rel.on]).filter(notNull));
+    async function hydrateOwningOne(exec, rows, rel3, targetModel) {
+      const fks = unique(rows.map((r) => r[rel3.on]).filter(notNull));
       if (fks.length === 0) {
         for (const r of rows)
-          r[rel.name] = null;
+          r[rel3.name] = null;
         return;
       }
-      const subNode = { kind: "select", model: rel.target, cardinality: "many", where: { kind: "leaf", field: rel.refs, op: "in", value: fks }, ...rel.nested ?? {} };
+      const subNode = { kind: "select", model: rel3.target, cardinality: "many", where: { kind: "leaf", field: rel3.refs, op: "in", value: fks }, ...rel3.nested ?? {} };
       const found = await executeMssqlSelect(exec, subNode, targetModel);
       const byRef = /* @__PURE__ */ new Map();
       for (const t of found)
-        byRef.set(stringKey(t[rel.refs]), t);
+        byRef.set(stringKey(t[rel3.refs]), t);
       for (const r of rows) {
-        const k = r[rel.on];
-        r[rel.name] = k == null ? null : byRef.get(stringKey(k)) ?? null;
+        const k = r[rel3.on];
+        r[rel3.name] = k == null ? null : byRef.get(stringKey(k)) ?? null;
       }
     }
-    async function hydrateInverseOne(exec, rows, rel, targetModel) {
-      const refs = unique(rows.map((r) => r[rel.refs]).filter(notNull));
+    async function hydrateInverseOne(exec, rows, rel3, targetModel) {
+      const refs = unique(rows.map((r) => r[rel3.refs]).filter(notNull));
       if (refs.length === 0) {
         for (const r of rows)
-          r[rel.name] = null;
+          r[rel3.name] = null;
         return;
       }
-      const subNode = { kind: "select", model: rel.target, cardinality: "many", where: { kind: "leaf", field: rel.on, op: "in", value: refs }, ...rel.nested ?? {} };
+      const subNode = { kind: "select", model: rel3.target, cardinality: "many", where: { kind: "leaf", field: rel3.on, op: "in", value: refs }, ...rel3.nested ?? {} };
       const found = await executeMssqlSelect(exec, subNode, targetModel);
       const byFk = /* @__PURE__ */ new Map();
       for (const t of found)
-        byFk.set(stringKey(t[rel.on]), t);
+        byFk.set(stringKey(t[rel3.on]), t);
       for (const r of rows) {
-        const k = r[rel.refs];
-        r[rel.name] = k == null ? null : byFk.get(stringKey(k)) ?? null;
+        const k = r[rel3.refs];
+        r[rel3.name] = k == null ? null : byFk.get(stringKey(k)) ?? null;
       }
     }
-    async function hydrateMany(exec, rows, rel, targetModel) {
-      const refs = unique(rows.map((r) => r[rel.refs]).filter(notNull));
+    async function hydrateMany(exec, rows, rel3, targetModel) {
+      const refs = unique(rows.map((r) => r[rel3.refs]).filter(notNull));
       if (refs.length === 0) {
         for (const r of rows)
-          r[rel.name] = [];
+          r[rel3.name] = [];
         return;
       }
-      const nestedWhere = rel.nested?.where;
-      const fkLeaf = { kind: "leaf", field: rel.on, op: "in", value: refs };
+      const nestedWhere = rel3.nested?.where;
+      const fkLeaf = { kind: "leaf", field: rel3.on, op: "in", value: refs };
       const where = nestedWhere ? { kind: "and", children: [nestedWhere, fkLeaf] } : fkLeaf;
-      const subNode = { kind: "select", model: rel.target, cardinality: "many", ...rel.nested ?? {}, where };
+      const subNode = { kind: "select", model: rel3.target, cardinality: "many", ...rel3.nested ?? {}, where };
       const found = await executeMssqlSelect(exec, subNode, targetModel);
       const byParent = /* @__PURE__ */ new Map();
       for (const t of found) {
-        const k = stringKey(t[rel.on]);
+        const k = stringKey(t[rel3.on]);
         const list = byParent.get(k);
         if (list)
           list.push(t);
@@ -9920,7 +9924,7 @@ var require_execute6 = __commonJS({
           byParent.set(k, [t]);
       }
       for (const r of rows)
-        r[rel.name] = byParent.get(stringKey(r[rel.refs])) ?? [];
+        r[rel3.name] = byParent.get(stringKey(r[rel3.refs])) ?? [];
     }
     async function applyRelationCounts(exec, rows, parentModel, counts) {
       if (rows.length === 0)
@@ -9929,26 +9933,26 @@ var require_execute6 = __commonJS({
       for (const r of rows)
         r._count = r._count ?? {};
       for (const relName of counts) {
-        const rel = relMap[relName];
-        if (!rel)
+        const rel3 = relMap[relName];
+        if (!rel3)
           continue;
-        const targetModel = schema_1.schema[rel.target];
+        const targetModel = schema_1.schema[rel3.target];
         if (!targetModel)
           continue;
-        const refs = unique(rows.map((r) => r[rel.refs]).filter(notNull));
+        const refs = unique(rows.map((r) => r[rel3.refs]).filter(notNull));
         if (refs.length === 0) {
           for (const row of rows)
             row._count[relName] = 0;
           continue;
         }
         const placeholders = refs.map((_, i) => `@p${i + 1}`).join(", ");
-        const sqlText = `SELECT [${rel.on}] AS fk, COUNT(*) AS c FROM [${targetModel.collection}] WHERE [${rel.on}] IN (${placeholders}) GROUP BY [${rel.on}]`;
+        const sqlText = `SELECT [${rel3.on}] AS fk, COUNT(*) AS c FROM [${targetModel.collection}] WHERE [${rel3.on}] IN (${placeholders}) GROUP BY [${rel3.on}]`;
         const { rows: groups } = await exec.query(sqlText, refs);
         const byFk = /* @__PURE__ */ new Map();
         for (const g of groups)
           byFk.set(stringKey(g.fk), Number(g.c));
         for (const row of rows)
-          row._count[relName] = byFk.get(stringKey(row[rel.refs])) ?? 0;
+          row._count[relName] = byFk.get(stringKey(row[rel3.refs])) ?? 0;
       }
     }
     function notNull(v2) {
@@ -9986,9 +9990,9 @@ var require_execute6 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mssql/driver.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mssql/driver.js
 var require_driver5 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mssql/driver.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mssql/driver.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.mssqlDriver = mssqlDriver;
@@ -10050,9 +10054,9 @@ var require_driver5 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mssql/introspect.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mssql/introspect.js
 var require_introspect5 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mssql/introspect.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mssql/introspect.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.introspectMssql = introspectMssql;
@@ -10127,9 +10131,9 @@ var require_introspect5 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mssql/adapter.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mssql/adapter.js
 var require_adapter6 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mssql/adapter.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mssql/adapter.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m2, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -10313,9 +10317,9 @@ var require_adapter6 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/range.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/range.js
 var require_range = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/range.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/range.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.leafToRange = leafToRange;
@@ -10374,9 +10378,9 @@ var require_range = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/predicate.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/predicate.js
 var require_predicate = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/predicate.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/predicate.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ALWAYS_TRUE = void 0;
@@ -10535,9 +10539,9 @@ var require_predicate = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/planner.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/planner.js
 var require_planner = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/planner.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/planner.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.planSelect = planSelect;
@@ -10748,9 +10752,9 @@ var require_planner = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/ddl.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/ddl.js
 var require_ddl = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/ddl.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/ddl.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.buildDDLPlan = buildDDLPlan;
@@ -10845,9 +10849,9 @@ var require_ddl = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/open.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/open.js
 var require_open = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/open.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/open.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.openDb = openDb;
@@ -10965,9 +10969,9 @@ var require_open = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/driver.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/driver.js
 var require_driver6 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/driver.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/driver.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.indexedDbDriver = indexedDbDriver;
@@ -11004,9 +11008,9 @@ var require_driver6 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/cursor-scan.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/cursor-scan.js
 var require_cursor_scan = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/cursor-scan.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/cursor-scan.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.cursorScan = cursorScan;
@@ -11067,9 +11071,9 @@ var require_cursor_scan = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/hydration.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/hydration.js
 var require_hydration = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/hydration.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/hydration.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.hydrate = hydrate;
@@ -11080,38 +11084,38 @@ var require_hydration = __commonJS({
       if (!hydration || hydration.length === 0 || parents.length === 0)
         return parents;
       const parentModel = schema[parentModelKey];
-      for (const rel of hydration) {
-        const targetModel = schema[rel.target];
+      for (const rel3 of hydration) {
+        const targetModel = schema[rel3.target];
         if (!targetModel)
           continue;
-        if (rel.kind === "many") {
-          const parentKeys = uniqueKeys(parents.map((p2) => p2[rel.refs]));
-          const rows = await getByIndex(db, targetModel.collection, rel.on, parentKeys);
+        if (rel3.kind === "many") {
+          const parentKeys = uniqueKeys(parents.map((p2) => p2[rel3.refs]));
+          const rows = await getByIndex(db, targetModel.collection, rel3.on, parentKeys);
           const grouped = /* @__PURE__ */ new Map();
           for (const r of rows) {
-            const key = String(r[rel.on]);
+            const key = String(r[rel3.on]);
             const arr = grouped.get(key) ?? [];
             arr.push(r);
             grouped.set(key, arr);
           }
           for (const [k, group] of grouped) {
-            if (rel.nested?.hydration) {
-              grouped.set(k, await hydrate(db, schema, rel.target, group, rel.nested.hydration));
+            if (rel3.nested?.hydration) {
+              grouped.set(k, await hydrate(db, schema, rel3.target, group, rel3.nested.hydration));
             }
           }
           for (const p2 of parents) {
-            p2[rel.name] = grouped.get(String(p2[rel.refs])) ?? [];
+            p2[rel3.name] = grouped.get(String(p2[rel3.refs])) ?? [];
           }
         } else {
-          const childIds = uniqueKeys(parents.map((p2) => p2[rel.on]));
+          const childIds = uniqueKeys(parents.map((p2) => p2[rel3.on]));
           let rows = await (0, cursor_scan_1.cursorScanIds)(db, targetModel.collection, childIds);
-          if (rel.nested?.hydration)
-            rows = await hydrate(db, schema, rel.target, rows, rel.nested.hydration);
+          if (rel3.nested?.hydration)
+            rows = await hydrate(db, schema, rel3.target, rows, rel3.nested.hydration);
           const targetPk = (0, planner_1.primaryKeyField)(targetModel);
           const byId = new Map(rows.map((r) => [String(r[targetPk]), r]));
           for (const p2 of parents) {
-            const key = p2[rel.on];
-            p2[rel.name] = key == null ? null : byId.get(String(key)) ?? null;
+            const key = p2[rel3.on];
+            p2[rel3.name] = key == null ? null : byId.get(String(key)) ?? null;
           }
         }
       }
@@ -11128,27 +11132,27 @@ var require_hydration = __commonJS({
           p2._count = {};
       }
       for (const relName of counts) {
-        const rel = rels[relName];
-        if (!rel) {
+        const rel3 = rels[relName];
+        if (!rel3) {
           for (const p2 of parents)
             p2._count[relName] = 0;
           continue;
         }
-        const targetModel = schema[rel.target];
+        const targetModel = schema[rel3.target];
         if (!targetModel) {
           for (const p2 of parents)
             p2._count[relName] = 0;
           continue;
         }
-        const parentKeys = uniqueKeys(parents.map((p2) => p2[rel.refs]));
-        const rows = await getByIndex(db, targetModel.collection, rel.on, parentKeys);
+        const parentKeys = uniqueKeys(parents.map((p2) => p2[rel3.refs]));
+        const rows = await getByIndex(db, targetModel.collection, rel3.on, parentKeys);
         const byFk = /* @__PURE__ */ new Map();
         for (const r of rows) {
-          const k = String(r[rel.on]);
+          const k = String(r[rel3.on]);
           byFk.set(k, (byFk.get(k) ?? 0) + 1);
         }
         for (const p2 of parents) {
-          p2._count[relName] = byFk.get(String(p2[rel.refs])) ?? 0;
+          p2._count[relName] = byFk.get(String(p2[rel3.refs])) ?? 0;
         }
       }
     }
@@ -11203,9 +11207,9 @@ var require_hydration = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/coerce.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/coerce.js
 var require_coerce2 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/coerce.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/coerce.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.coerceInbound = coerceInbound;
@@ -11257,9 +11261,9 @@ var require_coerce2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/vector.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/vector.js
 var require_vector = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/vector.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/vector.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.vectorDistance = vectorDistance;
@@ -11302,9 +11306,9 @@ var require_vector = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/geo.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/geo.js
 var require_geo = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/geo.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/geo.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.haversineMeters = haversineMeters;
@@ -11346,9 +11350,9 @@ var require_geo = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/fts.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/fts.js
 var require_fts = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/fts.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/fts.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.tokenize = tokenize;
@@ -11406,9 +11410,9 @@ var require_fts = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/errors.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/errors.js
 var require_errors7 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/errors.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/errors.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.wrapIdbError = wrapIdbError;
@@ -11457,9 +11461,9 @@ var require_errors7 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/execute.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/execute.js
 var require_execute7 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/execute.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/execute.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.executeSelect = executeSelect;
@@ -11619,8 +11623,8 @@ var require_execute7 = __commonJS({
         const out = {};
         for (const f3 of plan.fields)
           out[f3] = row[f3];
-        for (const rel of hydration ?? [])
-          out[rel.name] = row[rel.name];
+        for (const rel3 of hydration ?? [])
+          out[rel3.name] = row[rel3.name];
         if (plan.counts.length && row._count !== void 0)
           out._count = row._count;
         return out;
@@ -11902,9 +11906,9 @@ var require_execute7 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/cascade.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/cascade.js
 var require_cascade2 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/cascade.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/cascade.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.cascadeDelete = cascadeDelete;
@@ -11921,19 +11925,19 @@ var require_cascade2 = __commonJS({
       for (const [childKey, childModelRaw] of Object.entries(ctx.schema)) {
         const childModel = childModelRaw;
         const rels = childModel.relations?.() ?? {};
-        for (const rel of Object.values(rels)) {
-          if (rel.target !== modelKey)
+        for (const rel3 of Object.values(rels)) {
+          if (rel3.target !== modelKey)
             continue;
-          if (rel.kind !== "one")
+          if (rel3.kind !== "one")
             continue;
-          if (rel.inverse)
+          if (rel3.inverse)
             continue;
-          const action = rel.onDelete;
+          const action = rel3.onDelete;
           if (!action || action === "NoAction")
             continue;
           const tx = ctx.db.transaction(childModel.collection, "readonly");
           const store = tx.objectStore(childModel.collection);
-          const idx = findIdx(store, rel.on);
+          const idx = findIdx(store, rel3.on);
           const children = [];
           for (const pid of parentIds) {
             const key = `${childKey}:${String(pid)}`;
@@ -11947,7 +11951,7 @@ var require_cascade2 = __commonJS({
                 if (!cur)
                   return resolve();
                 const row = cur.value;
-                if (!idx && row[rel.on] !== pid) {
+                if (!idx && row[rel3.on] !== pid) {
                   cur.continue();
                   return;
                 }
@@ -11981,7 +11985,7 @@ var require_cascade2 = __commonJS({
             const wstore = wx.objectStore(childModel.collection);
             for (const c of children) {
               const patched = { ...c };
-              delete patched[rel.on];
+              delete patched[rel3.on];
               await new Promise((resolve, reject) => {
                 const req = wstore.put(patched);
                 req.onsuccess = () => resolve();
@@ -12003,9 +12007,9 @@ var require_cascade2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/introspect.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/introspect.js
 var require_introspect6 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/introspect.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/introspect.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.introspect = introspect;
@@ -12045,9 +12049,9 @@ var require_introspect6 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/adapter.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/adapter.js
 var require_adapter7 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/adapter.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/adapter.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.IndexeddbAdapter = void 0;
@@ -12218,9 +12222,9 @@ var require_adapter7 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/shared/mongo-to-sql-where.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/shared/mongo-to-sql-where.js
 var require_mongo_to_sql_where = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/shared/mongo-to-sql-where.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/shared/mongo-to-sql-where.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.mongoToSqlWhere = mongoToSqlWhere;
@@ -12387,9 +12391,9 @@ var require_mongo_to_sql_where = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/ddl.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/ddl.js
 var require_ddl2 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/ddl.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/ddl.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.buildSchemaDDL = buildSchemaDDL;
@@ -12530,8 +12534,8 @@ var require_ddl2 = __commonJS({
         }
       }
       const rels = m2.relations();
-      for (const [, rel] of Object.entries(rels)) {
-        const r = rel;
+      for (const [, rel3] of Object.entries(rels)) {
+        const r = rel3;
         if (r.inverse)
           continue;
         if (!m2.fields[r.on])
@@ -12710,9 +12714,9 @@ var require_ddl2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/migrate.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/migrate.js
 var require_migrate = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/migrate.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/migrate.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.applyMigration = applyMigration;
@@ -12755,9 +12759,9 @@ var require_migrate = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/scripts/diff-core.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/scripts/diff-core.js
 var require_diff_core = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/scripts/diff-core.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/scripts/diff-core.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.parseIgnoreList = parseIgnoreList;
@@ -12857,8 +12861,8 @@ var require_diff_core = __commonJS({
           });
         }
         const fks = [];
-        for (const rel of Object.values(m2.relations())) {
-          const r = rel;
+        for (const rel3 of Object.values(m2.relations())) {
+          const r = rel3;
           if (r.inverse)
             continue;
           if (!m2.fields[r.on])
@@ -13093,9 +13097,9 @@ var require_diff_core = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/wasm/drift-apply.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/wasm/drift-apply.js
 var require_drift_apply = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/wasm/drift-apply.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/wasm/drift-apply.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.applyDrift = applyDrift;
@@ -13179,9 +13183,9 @@ var require_drift_apply = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/wasm/migrate.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/wasm/migrate.js
 var require_migrate2 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/wasm/migrate.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/wasm/migrate.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.runMigrate = runMigrate;
@@ -13213,9 +13217,9 @@ var require_migrate2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/migrate.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/migrate.js
 var require_migrate3 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/indexeddb/migrate.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/indexeddb/migrate.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.runMigrate = runMigrate;
@@ -13254,9 +13258,9 @@ var require_migrate3 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/wasm/browser-doctor.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/wasm/browser-doctor.js
 var require_browser_doctor = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/wasm/browser-doctor.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/wasm/browser-doctor.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.browserDoctor = browserDoctor;
@@ -13368,9 +13372,9 @@ var require_browser_doctor = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/factory.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/factory.js
 var require_factory = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/factory.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/factory.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m2, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -13627,9 +13631,9 @@ var require_factory = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/wasm-driver.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/wasm-driver.js
 var require_wasm_driver = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/sqlite/wasm-driver.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/sqlite/wasm-driver.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.wasmSqliteDriver = wasmSqliteDriver;
@@ -13764,9 +13768,9 @@ var require_wasm_driver = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/driver.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/driver.js
 var require_driver7 = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/adapters/mongo/driver.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/adapters/mongo/driver.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.mongoDriver = mongoDriver;
@@ -13783,9 +13787,9 @@ var require_driver7 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/null-markers.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/null-markers.js
 var require_null_markers = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/null-markers.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/null-markers.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ForgeAnyNull = exports.ForgeJsonNull = exports.ForgeDbNull = void 0;
@@ -13799,9 +13803,9 @@ var require_null_markers = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/validator.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/validator.js
 var require_validator = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/validator.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/validator.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.forgeValidator = forgeValidator;
@@ -13811,9 +13815,9 @@ var require_validator = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/observability/otel.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/observability/otel.js
 var require_otel = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/observability/otel.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/observability/otel.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.wireOtel = wireOtel;
@@ -13872,9 +13876,9 @@ var require_otel = __commonJS({
   }
 });
 
-// node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/index.js
+// node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/index.js
 var require_dist = __commonJS({
-  "node_modules/.pnpm/forge-orm@2.6.3/node_modules/forge-orm/dist/index.js"(exports) {
+  "node_modules/.pnpm/forge-orm@2.6.4/node_modules/forge-orm/dist/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.setActiveSchema = exports.sampleSchema = exports.embed = exports.enums = exports.rel = exports.model = exports.f = exports.forgeValidator = exports.isForgeNullMarker = exports.ForgeAnyNull = exports.ForgeJsonNull = exports.ForgeDbNull = exports.FORGE_COL = exports.isColRef = exports.col = exports.buildCursor = exports.buildUpdateData = exports.buildProjection = exports.buildOrderBy = exports.buildWhereTree = exports.buildGroupBy = exports.buildDelete = exports.buildUpdate = exports.buildInsert = exports.buildCount = exports.buildSelect = exports.detectAdapterKind = exports.ForgeMissingDriverError = exports.isMssqlDriver = exports.mssqlDriver = exports.isDuckdbDriver = exports.duckdbDriver = exports.isMongoDriver = exports.mongoDriver = exports.isMysqlDriver = exports.planetscaleDriver = exports.mariadbDriver = exports.mysql2Driver = exports.isPostgresDriver = exports.postgresJsDriver = exports.pgDriver = exports.isWasmSqliteDriver = exports.wasmSqliteDriver = exports.isSqliteDriver = exports.tauriSqlDriver = exports.libsqlDriver = exports.opSqliteDriver = exports.expoSqliteDriver = exports.betterSqlite3Driver = exports.createDb = void 0;
@@ -14158,6 +14162,723 @@ var require_dist = __commonJS({
     Object.defineProperty(exports, "applySqliteMigration", { enumerable: true, get: function() {
       return migrate_2.applyMigration;
     } });
+  }
+});
+
+// node_modules/.pnpm/inflection@3.0.2/node_modules/inflection/lib/inflection.js
+var require_inflection = __commonJS({
+  "node_modules/.pnpm/inflection@3.0.2/node_modules/inflection/lib/inflection.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.pluralize = pluralize;
+    exports.singularize = singularize2;
+    exports.inflect = inflect;
+    exports.camelize = camelize;
+    exports.underscore = underscore;
+    exports.humanize = humanize;
+    exports.capitalize = capitalize;
+    exports.dasherize = dasherize;
+    exports.titleize = titleize;
+    exports.demodulize = demodulize;
+    exports.tableize = tableize;
+    exports.classify = classify;
+    exports.foreignKey = foreignKey;
+    exports.ordinalize = ordinalize;
+    exports.transform = transform;
+    var uncountableWords = [
+      // 'access',
+      "accommodation",
+      "adulthood",
+      "advertising",
+      "advice",
+      "aggression",
+      "aid",
+      "air",
+      "aircraft",
+      "alcohol",
+      "anger",
+      "applause",
+      "arithmetic",
+      // 'art',
+      "assistance",
+      "athletics",
+      // 'attention',
+      "bacon",
+      "baggage",
+      // 'ballet',
+      // 'beauty',
+      "beef",
+      // 'beer',
+      // 'behavior',
+      "biology",
+      // 'billiards',
+      "blood",
+      "botany",
+      // 'bowels',
+      "bread",
+      // 'business',
+      "butter",
+      "carbon",
+      "cardboard",
+      "cash",
+      "chalk",
+      "chaos",
+      "chess",
+      "crossroads",
+      "countryside",
+      // 'damage',
+      "dancing",
+      // 'danger',
+      "deer",
+      // 'delight',
+      // 'dessert',
+      "dignity",
+      "dirt",
+      // 'distribution',
+      "dust",
+      "economics",
+      "education",
+      "electricity",
+      // 'employment',
+      // 'energy',
+      "engineering",
+      "enjoyment",
+      // 'entertainment',
+      "envy",
+      "equipment",
+      "ethics",
+      "evidence",
+      "evolution",
+      // 'failure',
+      // 'faith',
+      "fame",
+      "fiction",
+      // 'fish',
+      "flour",
+      "flu",
+      "food",
+      // 'freedom',
+      // 'fruit',
+      "fuel",
+      "fun",
+      // 'funeral',
+      "furniture",
+      "gallows",
+      "garbage",
+      "garlic",
+      // 'gas',
+      "genetics",
+      // 'glass',
+      "gold",
+      "golf",
+      "gossip",
+      // 'grass',
+      "gratitude",
+      "grief",
+      // 'ground',
+      "guilt",
+      "gymnastics",
+      // 'hair',
+      "happiness",
+      "hardware",
+      "harm",
+      "hate",
+      "hatred",
+      "health",
+      "heat",
+      // 'height',
+      "help",
+      "homework",
+      "honesty",
+      "honey",
+      "hospitality",
+      "housework",
+      "humour",
+      "hunger",
+      "hydrogen",
+      "ice",
+      "importance",
+      "inflation",
+      "information",
+      // 'injustice',
+      "innocence",
+      // 'intelligence',
+      "iron",
+      "irony",
+      "jam",
+      // 'jealousy',
+      // 'jelly',
+      "jewelry",
+      // 'joy',
+      "judo",
+      // 'juice',
+      // 'justice',
+      "karate",
+      // 'kindness',
+      "knowledge",
+      // 'labour',
+      "lack",
+      // 'land',
+      "laughter",
+      "lava",
+      "leather",
+      "leisure",
+      "lightning",
+      "linguine",
+      "linguini",
+      "linguistics",
+      "literature",
+      "litter",
+      "livestock",
+      "logic",
+      "loneliness",
+      // 'love',
+      "luck",
+      "luggage",
+      "macaroni",
+      "machinery",
+      "magic",
+      // 'mail',
+      "management",
+      "mankind",
+      "marble",
+      "mathematics",
+      "mayonnaise",
+      "measles",
+      // 'meat',
+      // 'metal',
+      "methane",
+      "milk",
+      "minus",
+      "money",
+      // 'moose',
+      "mud",
+      "music",
+      "mumps",
+      "nature",
+      "news",
+      "nitrogen",
+      "nonsense",
+      "nurture",
+      "nutrition",
+      "obedience",
+      "obesity",
+      // 'oil',
+      "oxygen",
+      // 'paper',
+      // 'passion',
+      "pasta",
+      "patience",
+      // 'permission',
+      "physics",
+      "poetry",
+      "pollution",
+      "poverty",
+      // 'power',
+      "pride",
+      // 'production',
+      // 'progress',
+      // 'pronunciation',
+      "psychology",
+      "publicity",
+      "punctuation",
+      // 'quality',
+      // 'quantity',
+      "quartz",
+      "racism",
+      // 'rain',
+      // 'recreation',
+      "relaxation",
+      "reliability",
+      "research",
+      "respect",
+      "revenge",
+      "rice",
+      "rubbish",
+      "rum",
+      "safety",
+      // 'salad',
+      // 'salt',
+      // 'sand',
+      // 'satire',
+      "scenery",
+      "seafood",
+      "seaside",
+      "series",
+      "shame",
+      "sheep",
+      "shopping",
+      // 'silence',
+      "sleep",
+      // 'slang'
+      "smoke",
+      "smoking",
+      "snow",
+      "soap",
+      "software",
+      "soil",
+      // 'sorrow',
+      // 'soup',
+      "spaghetti",
+      // 'speed',
+      "species",
+      // 'spelling',
+      // 'sport',
+      "steam",
+      // 'strength',
+      "stuff",
+      "stupidity",
+      // 'success',
+      // 'sugar',
+      "sunshine",
+      "symmetry",
+      // 'tea',
+      "tennis",
+      "thirst",
+      "thunder",
+      "timber",
+      // 'time',
+      // 'toast',
+      // 'tolerance',
+      // 'trade',
+      "traffic",
+      "transportation",
+      // 'travel',
+      "trust",
+      // 'understanding',
+      "underwear",
+      "unemployment",
+      "unity",
+      // 'usage',
+      "validity",
+      "veal",
+      "vegetation",
+      "vegetarianism",
+      "vengeance",
+      "violence",
+      // 'vision',
+      "vitality",
+      "warmth",
+      // 'water',
+      "wealth",
+      "weather",
+      // 'weight',
+      "welfare",
+      "wheat",
+      // 'whiskey',
+      // 'width',
+      "wildlife",
+      // 'wine',
+      "wisdom",
+      // 'wood',
+      // 'wool',
+      // 'work',
+      // 'yeast',
+      "yoga",
+      "zinc",
+      "zoology"
+    ];
+    var regex = {
+      plural: {
+        men: new RegExp("^(m|wom)en$", "gi"),
+        people: new RegExp("(pe)ople$", "gi"),
+        children: new RegExp("(child)ren$", "gi"),
+        tia: new RegExp("([ti])a$", "gi"),
+        analyses: new RegExp("((a)naly|(b)a|(d)iagno|(p)arenthe|(p)rogno|(s)ynop|(t)he)ses$", "gi"),
+        databases: new RegExp("(database)s$", "gi"),
+        drives: new RegExp("(drive)s$", "gi"),
+        hives: new RegExp("(hi|ti)ves$", "gi"),
+        curves: new RegExp("(curve)s$", "gi"),
+        lrves: new RegExp("([lr])ves$", "gi"),
+        aves: new RegExp("([a])ves$", "gi"),
+        foves: new RegExp("([^fo])ves$", "gi"),
+        movies: new RegExp("(m)ovies$", "gi"),
+        aeiouyies: new RegExp("([^aeiouy]|qu)ies$", "gi"),
+        series: new RegExp("(s)eries$", "gi"),
+        xes: new RegExp("(x|ch|ss|sh)es$", "gi"),
+        mice: new RegExp("([m|l])ice$", "gi"),
+        buses: new RegExp("(bus)es$", "gi"),
+        oes: new RegExp("(o)es$", "gi"),
+        shoes: new RegExp("(shoe)s$", "gi"),
+        crises: new RegExp("(cris|ax|test)es$", "gi"),
+        octopuses: new RegExp("(octop|vir)uses$", "gi"),
+        aliases: new RegExp("(alias|canvas|status|campus)es$", "gi"),
+        summonses: new RegExp("^(summons|bonus)es$", "gi"),
+        oxen: new RegExp("^(ox)en", "gi"),
+        matrices: new RegExp("(matr)ices$", "gi"),
+        vertices: new RegExp("(vert|ind)ices$", "gi"),
+        feet: new RegExp("^feet$", "gi"),
+        teeth: new RegExp("^teeth$", "gi"),
+        geese: new RegExp("^geese$", "gi"),
+        quizzes: new RegExp("(quiz)zes$", "gi"),
+        whereases: new RegExp("^(whereas)es$", "gi"),
+        criteria: new RegExp("^(criteri)a$", "gi"),
+        genera: new RegExp("^genera$", "gi"),
+        ss: new RegExp("ss$", "gi"),
+        s: new RegExp("s$", "gi")
+      },
+      singular: {
+        man: new RegExp("^(m|wom)an$", "gi"),
+        person: new RegExp("(pe)rson$", "gi"),
+        child: new RegExp("(child)$", "gi"),
+        drive: new RegExp("(drive)$", "gi"),
+        ox: new RegExp("^(ox)$", "gi"),
+        axis: new RegExp("(ax|test)is$", "gi"),
+        octopus: new RegExp("(octop|vir)us$", "gi"),
+        alias: new RegExp("(alias|status|canvas|campus)$", "gi"),
+        summons: new RegExp("^(summons|bonus)$", "gi"),
+        bus: new RegExp("(bu)s$", "gi"),
+        buffalo: new RegExp("(buffal|tomat|potat)o$", "gi"),
+        tium: new RegExp("([ti])um$", "gi"),
+        sis: new RegExp("sis$", "gi"),
+        ffe: new RegExp("(?:([^f])fe|([lr])f)$", "gi"),
+        focus: new RegExp("^(focus)$", "gi"),
+        hive: new RegExp("(hi|ti)ve$", "gi"),
+        aeiouyy: new RegExp("([^aeiouy]|qu)y$", "gi"),
+        x: new RegExp("(x|ch|ss|sh)$", "gi"),
+        matrix: new RegExp("(matr)ix$", "gi"),
+        vertex: new RegExp("(vert|ind)ex$", "gi"),
+        mouse: new RegExp("([m|l])ouse$", "gi"),
+        foot: new RegExp("^foot$", "gi"),
+        tooth: new RegExp("^tooth$", "gi"),
+        goose: new RegExp("^goose$", "gi"),
+        quiz: new RegExp("(quiz)$", "gi"),
+        whereas: new RegExp("^(whereas)$", "gi"),
+        criterion: new RegExp("^(criteri)on$", "gi"),
+        genus: new RegExp("^genus$", "gi"),
+        s: new RegExp("s$", "gi"),
+        common: new RegExp("$", "gi")
+      }
+    };
+    var pluralRules = [
+      // do not replace if its already a plural word
+      [regex.plural.men],
+      [regex.plural.people],
+      [regex.plural.children],
+      [regex.plural.tia],
+      [regex.plural.analyses],
+      [regex.plural.databases],
+      [regex.plural.drives],
+      [regex.plural.hives],
+      [regex.plural.curves],
+      [regex.plural.lrves],
+      [regex.plural.foves],
+      [regex.plural.aeiouyies],
+      [regex.plural.series],
+      [regex.plural.movies],
+      [regex.plural.xes],
+      [regex.plural.mice],
+      [regex.plural.buses],
+      [regex.plural.oes],
+      [regex.plural.shoes],
+      [regex.plural.crises],
+      [regex.plural.octopuses],
+      [regex.plural.aliases],
+      [regex.plural.summonses],
+      [regex.plural.oxen],
+      [regex.plural.matrices],
+      [regex.plural.feet],
+      [regex.plural.teeth],
+      [regex.plural.geese],
+      [regex.plural.quizzes],
+      [regex.plural.whereases],
+      [regex.plural.criteria],
+      [regex.plural.genera],
+      // original rule
+      [regex.singular.man, "$1en"],
+      [regex.singular.person, "$1ople"],
+      [regex.singular.child, "$1ren"],
+      [regex.singular.drive, "$1s"],
+      [regex.singular.ox, "$1en"],
+      [regex.singular.axis, "$1es"],
+      [regex.singular.octopus, "$1uses"],
+      [regex.singular.alias, "$1es"],
+      [regex.singular.summons, "$1es"],
+      [regex.singular.bus, "$1ses"],
+      [regex.singular.buffalo, "$1oes"],
+      [regex.singular.tium, "$1a"],
+      [regex.singular.sis, "ses"],
+      [regex.singular.ffe, "$1$2ves"],
+      [regex.singular.focus, "$1es"],
+      [regex.singular.hive, "$1ves"],
+      [regex.singular.aeiouyy, "$1ies"],
+      [regex.singular.matrix, "$1ices"],
+      [regex.singular.vertex, "$1ices"],
+      [regex.singular.x, "$1es"],
+      [regex.singular.mouse, "$1ice"],
+      [regex.singular.foot, "feet"],
+      [regex.singular.tooth, "teeth"],
+      [regex.singular.goose, "geese"],
+      [regex.singular.quiz, "$1zes"],
+      [regex.singular.whereas, "$1es"],
+      [regex.singular.criterion, "$1a"],
+      [regex.singular.genus, "genera"],
+      [regex.singular.s, "s"],
+      [regex.singular.common, "s"]
+    ];
+    var singularRules = [
+      // do not replace if its already a singular word
+      [regex.singular.man],
+      [regex.singular.person],
+      [regex.singular.child],
+      [regex.singular.drive],
+      [regex.singular.ox],
+      [regex.singular.axis],
+      [regex.singular.octopus],
+      [regex.singular.alias],
+      [regex.singular.summons],
+      [regex.singular.bus],
+      [regex.singular.buffalo],
+      [regex.singular.tium],
+      [regex.singular.sis],
+      [regex.singular.ffe],
+      [regex.singular.focus],
+      [regex.singular.hive],
+      [regex.singular.aeiouyy],
+      [regex.singular.x],
+      [regex.singular.matrix],
+      [regex.singular.mouse],
+      [regex.singular.foot],
+      [regex.singular.tooth],
+      [regex.singular.goose],
+      [regex.singular.quiz],
+      [regex.singular.whereas],
+      [regex.singular.criterion],
+      [regex.singular.genus],
+      // original rule
+      [regex.plural.men, "$1an"],
+      [regex.plural.people, "$1rson"],
+      [regex.plural.children, "$1"],
+      [regex.plural.databases, "$1"],
+      [regex.plural.drives, "$1"],
+      [regex.plural.genera, "genus"],
+      [regex.plural.criteria, "$1on"],
+      [regex.plural.tia, "$1um"],
+      [regex.plural.analyses, "$1$2sis"],
+      [regex.plural.hives, "$1ve"],
+      [regex.plural.curves, "$1"],
+      [regex.plural.lrves, "$1f"],
+      [regex.plural.aves, "$1ve"],
+      [regex.plural.foves, "$1fe"],
+      [regex.plural.movies, "$1ovie"],
+      [regex.plural.aeiouyies, "$1y"],
+      [regex.plural.series, "$1eries"],
+      [regex.plural.xes, "$1"],
+      [regex.plural.mice, "$1ouse"],
+      [regex.plural.buses, "$1"],
+      [regex.plural.oes, "$1"],
+      [regex.plural.shoes, "$1"],
+      [regex.plural.crises, "$1is"],
+      [regex.plural.octopuses, "$1us"],
+      [regex.plural.aliases, "$1"],
+      [regex.plural.summonses, "$1"],
+      [regex.plural.oxen, "$1"],
+      [regex.plural.matrices, "$1ix"],
+      [regex.plural.vertices, "$1ex"],
+      [regex.plural.feet, "foot"],
+      [regex.plural.teeth, "tooth"],
+      [regex.plural.geese, "goose"],
+      [regex.plural.quizzes, "$1"],
+      [regex.plural.whereases, "$1"],
+      [regex.plural.ss, "ss"],
+      [regex.plural.s, ""]
+    ];
+    var nonTitlecasedWords = [
+      "and",
+      "or",
+      "nor",
+      "a",
+      "an",
+      "the",
+      "so",
+      "but",
+      "to",
+      "of",
+      "at",
+      "by",
+      "from",
+      "into",
+      "on",
+      "onto",
+      "off",
+      "out",
+      "in",
+      "over",
+      "with",
+      "for"
+    ];
+    var idSuffix = new RegExp("(_ids|_id)$", "g");
+    var underbar = new RegExp("_", "g");
+    var spaceOrUnderbar = new RegExp("[ _]", "g");
+    var uppercase = new RegExp("([A-Z])", "g");
+    var underbarPrefix = new RegExp("^_");
+    function applyRules(str, rules, skip, override) {
+      if (override) {
+        return override;
+      } else {
+        if (skip.includes(str.toLocaleLowerCase())) {
+          return str;
+        }
+        for (const rule of rules) {
+          if (str.match(rule[0])) {
+            if (rule[1] !== void 0) {
+              return str.replace(rule[0], rule[1]);
+            }
+            return str;
+          }
+        }
+      }
+      return str;
+    }
+    function pluralize(str, plural) {
+      return applyRules(str, pluralRules, uncountableWords, plural);
+    }
+    function singularize2(str, singular) {
+      return applyRules(str, singularRules, uncountableWords, singular);
+    }
+    function inflect(str, count, singular, plural) {
+      if (isNaN(count))
+        return str;
+      if (count === 1) {
+        return applyRules(str, singularRules, uncountableWords, singular);
+      } else {
+        return applyRules(str, pluralRules, uncountableWords, plural);
+      }
+    }
+    function camelize(str, lowFirstLetter) {
+      const strPath = str.split("/");
+      const j = strPath.length;
+      let strArr, k, l, first;
+      for (let i = 0; i < j; i++) {
+        strArr = strPath[i].split("_");
+        k = 0;
+        l = strArr.length;
+        for (; k < l; k++) {
+          if (k !== 0) {
+            strArr[k] = strArr[k].toLowerCase();
+          }
+          first = strArr[k].charAt(0);
+          first = lowFirstLetter && i === 0 && k === 0 ? first.toLowerCase() : first.toUpperCase();
+          strArr[k] = first + strArr[k].substring(1);
+        }
+        strPath[i] = strArr.join("");
+      }
+      return strPath.join("::");
+    }
+    function underscore(str, allUpperCase) {
+      if (allUpperCase && str === str.toUpperCase())
+        return str;
+      const strPath = str.split("::");
+      const j = strPath.length;
+      for (let i = 0; i < j; i++) {
+        strPath[i] = strPath[i].replace(uppercase, "_$1");
+        strPath[i] = strPath[i].replace(underbarPrefix, "");
+      }
+      return strPath.join("/").toLowerCase();
+    }
+    function humanize(str, lowFirstLetter) {
+      str = str.toLowerCase();
+      str = str.replace(idSuffix, "");
+      str = str.replace(underbar, " ");
+      if (!lowFirstLetter) {
+        str = capitalize(str);
+      }
+      return str;
+    }
+    function capitalize(str) {
+      str = str.toLowerCase();
+      return str.substring(0, 1).toUpperCase() + str.substring(1);
+    }
+    function dasherize(str) {
+      return str.replace(spaceOrUnderbar, "-");
+    }
+    function titleize(str) {
+      str = str.toLowerCase().replace(underbar, " ");
+      const strArr = str.split(" ");
+      const j = strArr.length;
+      let d2, l;
+      for (let i = 0; i < j; i++) {
+        d2 = strArr[i].split("-");
+        l = d2.length;
+        for (let k = 0; k < l; k++) {
+          if (nonTitlecasedWords.indexOf(d2[k].toLowerCase()) < 0) {
+            d2[k] = capitalize(d2[k]);
+          }
+        }
+        strArr[i] = d2.join("-");
+      }
+      str = strArr.join(" ");
+      str = str.substring(0, 1).toUpperCase() + str.substring(1);
+      return str;
+    }
+    function demodulize(str) {
+      const strArr = str.split("::");
+      return strArr[strArr.length - 1];
+    }
+    function tableize(str) {
+      str = underscore(str);
+      str = pluralize(str);
+      return str;
+    }
+    function classify(str) {
+      str = camelize(str);
+      str = singularize2(str);
+      return str;
+    }
+    function foreignKey(str, dropIdUbar) {
+      str = demodulize(str);
+      str = underscore(str) + (dropIdUbar ? "" : "_") + "id";
+      return str;
+    }
+    function ordinalize(str) {
+      const strArr = str.split(" ");
+      const j = strArr.length;
+      for (let i = 0; i < j; i++) {
+        const k = parseInt(strArr[i], 10);
+        if (!isNaN(k)) {
+          const ltd = strArr[i].substring(strArr[i].length - 2);
+          const ld = strArr[i].substring(strArr[i].length - 1);
+          let suf = "th";
+          if (ltd != "11" && ltd != "12" && ltd != "13") {
+            if (ld === "1") {
+              suf = "st";
+            } else if (ld === "2") {
+              suf = "nd";
+            } else if (ld === "3") {
+              suf = "rd";
+            }
+          }
+          strArr[i] += suf;
+        }
+      }
+      return strArr.join(" ");
+    }
+    var transformFunctions = {
+      pluralize,
+      singularize: singularize2,
+      camelize,
+      underscore,
+      humanize,
+      capitalize,
+      dasherize,
+      titleize,
+      demodulize,
+      tableize,
+      classify,
+      foreignKey,
+      ordinalize
+    };
+    function transform(str, arr) {
+      const j = arr.length;
+      for (let i = 0; i < j; i++) {
+        const method = arr[i];
+        const methodFn = transformFunctions[method];
+        if (methodFn) {
+          str = methodFn(str);
+        }
+      }
+      return str;
+    }
   }
 });
 
@@ -19401,6 +20122,109 @@ var export_types = ct.types;
 
 // toForgeSchema.js
 var import_forge_orm = __toESM(require_dist(), 1);
+var import_inflection = __toESM(require_inflection(), 1);
+
+// node_modules/.pnpm/stacktrace-parser@0.1.11/node_modules/stacktrace-parser/dist/stack-trace-parser.esm.js
+var UNKNOWN_FUNCTION = "<unknown>";
+function parse(stackString) {
+  var lines = stackString.split("\n");
+  return lines.reduce(function(stack, line) {
+    var parseResult = parseChrome(line) || parseWinjs(line) || parseGecko(line) || parseNode(line) || parseJSC(line);
+    if (parseResult) {
+      stack.push(parseResult);
+    }
+    return stack;
+  }, []);
+}
+var chromeRe = /^\s*at (.*?) ?\(((?:file|https?|blob|chrome-extension|native|eval|webpack|rsc|<anonymous>|\/|[a-z]:\\|\\\\).*?)(?::(\d+))?(?::(\d+))?\)?\s*$/i;
+var chromeEvalRe = /\((\S*)(?::(\d+))(?::(\d+))\)/;
+function parseChrome(line) {
+  var parts = chromeRe.exec(line);
+  if (!parts) {
+    return null;
+  }
+  var isNative = parts[2] && parts[2].indexOf("native") === 0;
+  var isEval = parts[2] && parts[2].indexOf("eval") === 0;
+  var submatch = chromeEvalRe.exec(parts[2]);
+  if (isEval && submatch != null) {
+    parts[2] = submatch[1];
+    parts[3] = submatch[2];
+    parts[4] = submatch[3];
+  }
+  return {
+    file: !isNative ? parts[2] : null,
+    methodName: parts[1] || UNKNOWN_FUNCTION,
+    arguments: isNative ? [parts[2]] : [],
+    lineNumber: parts[3] ? +parts[3] : null,
+    column: parts[4] ? +parts[4] : null
+  };
+}
+var winjsRe = /^\s*at (?:((?:\[object object\])?.+) )?\(?((?:file|ms-appx|https?|webpack|rsc|blob):.*?):(\d+)(?::(\d+))?\)?\s*$/i;
+function parseWinjs(line) {
+  var parts = winjsRe.exec(line);
+  if (!parts) {
+    return null;
+  }
+  return {
+    file: parts[2],
+    methodName: parts[1] || UNKNOWN_FUNCTION,
+    arguments: [],
+    lineNumber: +parts[3],
+    column: parts[4] ? +parts[4] : null
+  };
+}
+var geckoRe = /^\s*(.*?)(?:\((.*?)\))?(?:^|@)((?:file|https?|blob|chrome|webpack|rsc|resource|\[native).*?|[^@]*bundle)(?::(\d+))?(?::(\d+))?\s*$/i;
+var geckoEvalRe = /(\S+) line (\d+)(?: > eval line \d+)* > eval/i;
+function parseGecko(line) {
+  var parts = geckoRe.exec(line);
+  if (!parts) {
+    return null;
+  }
+  var isEval = parts[3] && parts[3].indexOf(" > eval") > -1;
+  var submatch = geckoEvalRe.exec(parts[3]);
+  if (isEval && submatch != null) {
+    parts[3] = submatch[1];
+    parts[4] = submatch[2];
+    parts[5] = null;
+  }
+  return {
+    file: parts[3],
+    methodName: parts[1] || UNKNOWN_FUNCTION,
+    arguments: parts[2] ? parts[2].split(",") : [],
+    lineNumber: parts[4] ? +parts[4] : null,
+    column: parts[5] ? +parts[5] : null
+  };
+}
+var javaScriptCoreRe = /^\s*(?:([^@]*)(?:\((.*?)\))?@)?(\S.*?):(\d+)(?::(\d+))?\s*$/i;
+function parseJSC(line) {
+  var parts = javaScriptCoreRe.exec(line);
+  if (!parts) {
+    return null;
+  }
+  return {
+    file: parts[3],
+    methodName: parts[1] || UNKNOWN_FUNCTION,
+    arguments: [],
+    lineNumber: +parts[4],
+    column: parts[5] ? +parts[5] : null
+  };
+}
+var nodeRe = /^\s*at (?:((?:\[object object\])?[^\\/]+(?: \[as \S+\])?) )?\(?(.*?):(\d+)(?::(\d+))?\)?\s*$/i;
+function parseNode(line) {
+  var parts = nodeRe.exec(line);
+  if (!parts) {
+    return null;
+  }
+  return {
+    file: parts[2],
+    methodName: parts[1] || UNKNOWN_FUNCTION,
+    arguments: [],
+    lineNumber: +parts[3],
+    column: parts[4] ? +parts[4] : null
+  };
+}
+
+// toForgeSchema.js
 function toForgeSchema(schemaData) {
   const tables = Object.getOwnPropertyNames(schemaData.definitions);
   const schema = {};
@@ -19410,12 +20234,17 @@ function toForgeSchema(schemaData) {
       schemaData.definitions[table].properties
     );
     const fields = {};
+    let joins = {};
     for (let property of properties) {
       const value = schemaData.definitions[table].properties[property];
       const isObject = typeof value === "object";
-      if (isObject) fields[property] = getType(value.type);
+      const isJoin = value.type === "array" || value.type === void 0;
+      if (isJoin) joins[property] = getJoin(schemaData, table, property);
+      else if (isObject) fields[property] = getType(value.type);
     }
     schema[table] = (0, import_forge_orm.model)(table, fields);
+    const hasJoins = Object.getOwnPropertyNames(joins).length;
+    if (hasJoins) schema[table].relate(() => joins);
   }
   return schema;
 }
@@ -19429,6 +20258,60 @@ function getType(type) {
   type = fMap[type] || type;
   const fType = import_forge_orm.f[type]();
   return fType;
+}
+function getJoin(schema, tableName, propertyName) {
+  const isArray = schema.definitions[tableName].properties[propertyName].type === "array";
+  let relation = import_forge_orm.rel.one;
+  if (isArray) relation = import_forge_orm.rel.many;
+  const join = relation(propertyName, {
+    on: getForeignKey(schema, tableName, propertyName),
+    refs: "id"
+  });
+  return join;
+}
+function getForeignKey(schema, tableName, propertyName) {
+  try {
+    const table = schema.definitions[tableName].properties;
+    const fields = Object.getOwnPropertyNames(table);
+    const foreignKeys = fields.reduce(toForeignKeys, []);
+    const hasForeignKey = foreignKeys.length ? true : false;
+    if (!hasForeignKey)
+      throw new Error("No foreign key detected. Try swapping parameters.");
+    const bestMatch = foreignKeys.reduce(toBestMatch, {
+      match: propertyName
+    });
+    return bestMatch.foreignKey;
+  } catch (error) {
+    if (isInfiniteRecursion("getForeignKey", 5))
+      throw new Error(
+        'Foreign keys are missing in jsonSchema. Add keepRelationScalarFields = "true" to the jsonSchema generator. Then generate jsonSchema again.'
+      );
+    return getForeignKey(schema, propertyName, tableName);
+  }
+}
+function toForeignKeys(foreignKeys, field = "") {
+  const isForeignKey = field.includes("_id") || field.includes("-id") || field.includes("_key") || field.includes("-key");
+  if (isForeignKey) foreignKeys.push(field);
+  return foreignKeys;
+}
+function toBestMatch(options, field) {
+  const plural = options.match;
+  const singular = (0, import_inflection.singularize)(options.match);
+  const isMatch = field.includes(plural) || field.includes(singular);
+  if (isMatch) options.foreignKey = field;
+  return options;
+}
+function isInfiniteRecursion(functionName, maxCalls = 100) {
+  const stack = new Error().stack;
+  const trace = parse(stack);
+  const isInfiniteLoop = trace.filter(forFunction(functionName)).length > maxCalls;
+  if (isInfiniteLoop) return true;
+  else return false;
+}
+function forFunction(functionName) {
+  return function(item) {
+    return item.methodName === functionName;
+  };
 }
 
 // toJsonData.js
@@ -19452,6 +20335,7 @@ function handleError(error) {
 async function createWebClient({
   datasourceUrl,
   jsonSchema,
+  // schemaPrisma = "./prisma/schema.prisma",
   disableWarningInBrowsers = false
 }) {
   try {
@@ -19476,6 +20360,16 @@ export {
   createWebClient
 };
 /*! Bundled license information:
+
+inflection/lib/inflection.js:
+  (*!
+   * inflection
+   * Copyright(c) 2011 Ben Lin <ben@dreamerslab.com>
+   * MIT Licensed
+   *
+   * @fileoverview
+   * A port of inflection-js to node.js module.
+   *)
 
 @neondatabase/serverless/index.mjs:
   (*! Bundled license information:
