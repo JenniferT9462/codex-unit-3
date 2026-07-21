@@ -52,22 +52,18 @@ export default function WebClient() {
       </output>
     </main>
   );
-  //4LXplghghL7u5w0s
+
   async function handleData() {
-    const prisma = await createWebClient({
-      jsonSchema: schema,
-      datasourceUrl:
-        `postgresql://postgres.hkfdeoajhsjfiihskipj:${password}@aws-0-ca-central-1.pooler.supabase.com:5432/postgres`,
-    });
+    const prisma = await createWebClient({jsonSchema: schema, datasourceUrl: "postgresql://postgres.hkfdeoajhsjfiihskipj:4LXplghghL7u5w0s@aws-0-ca-central-1.pooler.supabase.com:5432/postgres"});
     const results = await prisma.products.findMany();
     setData(results);
   }
 
   function componentDidUpdate() {
     setInputValue(true);
-    if (password && typeof password === "string" && password.trim() !== "") {
-      handleData();
-    }
+   if (password && typeof password === "string" && password.trim() !== "") {
+     handleData();
+   }
   }
 }
 
