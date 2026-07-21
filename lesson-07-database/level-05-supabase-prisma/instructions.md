@@ -27,7 +27,7 @@ Being able to store and access your own data programmatically will help make you
 15. Install these packages - `prisma@6` and `dotenv`.
 16. Initialize Prisma in the terminal - `npx prisma init`
 17. Observe that these files were generated - `prisma.config.ts`, `prisma/schema.prisma`, `.gitignore`, and `.env`.
-18. In `.schema.prisma`, change the `provider` to `prisma-client-js`. This will generate a client for JavaScript.
+18. In `schema.prisma`, change the `provider` to `prisma-client-js`. This will generate a client for JavaScript.
 19. In `.env`, replace the string for `DATABASE_URL` with the `Connection string` that you copied from Supabase `Session pooler`.
 20. In the connection string, replace `[YOUR-PASSWORD]` with the database password you created (or generated).
 21. Synchronize Prisma with your database - `npx prisma db pull`
