@@ -3,11 +3,14 @@ import { useEffect } from 'react';
 import {
   Ripple,
   initTWE,
+  Input
 } from "tw-elements";
+
 
 export function useInputTWE() {
     useEffect(() => {
         initTWE({ Ripple });
+        initTWE({ Input });
     }, [])
 }
 
