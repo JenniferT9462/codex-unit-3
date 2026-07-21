@@ -8,6 +8,7 @@ export default function WebClient() {
   const [password, handleSubmit] = useSecret("password");
   const [data, setData] = useState([]);
   const [inputValue, setInputValue] = useState(false);
+  const [prisma, setPrisma] = useState(null);
 
   useInputTWE();
 
@@ -52,10 +53,11 @@ export default function WebClient() {
       </output>
     </main>
   );
-
+// 4LXplghghL7u5w0s
   async function handleData() {
-    const prisma = await createWebClient({jsonSchema: schema, datasourceUrl: "postgresql://postgres.hkfdeoajhsjfiihskipj:4LXplghghL7u5w0s@aws-0-ca-central-1.pooler.supabase.com:5432/postgres"});
-    const results = await prisma.products.findMany();
+    const client = await createWebClient({jsonSchema: schema, datasourceUrl: `postgresql://postgres.hkfdeoajhsjfiihskipj:${password}@aws-0-ca-central-1.pooler.supabase.com:5432/postgres`});
+    setPrisma(client);
+    const results = await client.products.findMany();
     setData(results);
   }
 

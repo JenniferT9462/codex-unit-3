@@ -1,8 +1,8 @@
 import { useSecret } from "../hooks/useSecret.js";
 import { useInputTWE } from "../hooks/useInputTWE.js";
 import { useState, useEffect, Fragment } from "react";
-import { createWebClient } from '../../../web-client.js';
-import  schema  from '../../../json-schema.json';
+import { createWebClient } from "../../../web-client.js";
+import schema from "../../../json-schema.json";
 
 export default function WebClient() {
   const [password, handleSubmit] = useSecret("password");
@@ -19,14 +19,6 @@ export default function WebClient() {
 
   return (
     <main>
-      {/* <form onSubmit={handleSubmit}>
-          <label htmlFor="apiKey">
-            API Key:
-            <input type="text" name="apiKey" />
-          </label>
-          <button type="submit">Submit</button>
-        </form> */}
-
       <form onSubmit={handleSubmit} className="relative flex">
         <input
           type="password"
@@ -56,8 +48,7 @@ export default function WebClient() {
   async function handleData() {
     const prisma = await createWebClient({
       jsonSchema: schema,
-      datasourceUrl:
-        `postgresql://postgres.hkfdeoajhsjfiihskipj:${password}@aws-0-ca-central-1.pooler.supabase.com:5432/postgres`,
+      datasourceUrl: `postgresql://postgres.hkfdeoajhsjfiihskipj:${password}@aws-0-ca-central-1.pooler.supabase.com:5432/postgres`,
     });
     const results = await prisma.products.findMany();
     setData(results);
@@ -73,14 +64,15 @@ export default function WebClient() {
 
 function toDetails(item, index) {
   const key = `${index}-${item.name}`;
-  const details = 
+  const details = (
     <Fragment key={key}>
       <dt>{item.name}</dt>
       <dd>
         <img src={item.src} alt={item.name} />
         <p>{item.price}</p>
       </dd>
-    </Fragment>;
+    </Fragment>
+  );
 
-    return details;
+  return details;
 }
