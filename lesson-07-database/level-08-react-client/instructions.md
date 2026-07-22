@@ -18,9 +18,9 @@ Discover the difference between using the Prisma web client in NodeJs and React.
 6. Run `script.js`. It should work without errors.
 7. Set up the website: In your system's file explorer or file picker, copy your `spa-template` folder into this level folder. The template should render a `Navbar` with TW Elements, gets an API key from the user, and uses the `useSecret` custom hook. In this level folder, rename `spa-template` to `react-client`. Change the title of the website to `Using Prisma Web Client in React`. In the terminal, navigate to the `react-client` folder. Start the Vite server and open a React Debugger browser to the URL provided by Vite.
 8. View the website pages and make sure they run without errors.
-9. Edit the component that gets an API key from the user. Change it to `WebClient`. Change the label to `Database Password`. Change the `name` attribute to `password`. Change `useSecret` to destructure the secret into `password` and use the `name` attribute `password`. Update `handleSubmit` Update `BrowserRouter` to render `WebClient` with `/webclient` as the path. Update the `Navbar` to link to `Web Client`.
+9. Edit the component that gets an API key from the user. Change it to `WebClient`. Change the label to `Database Password`. Change the `name` attribute to `password`. Change `useSecret` to destructure the secret into `password` and use the `name` attribute `password`. Update `BrowserRouter` to render `WebClient` with `/webclient` as the path. Update the `Navbar` to link to `Web Client`.
 10. View the website pages and make sure they run without errors.
-11. In `WebClient`, add `useState([]);` and destructure its items into `data` and `setData`.
+11. In `WebClient`, add `useState([]);` and destructure its items into `data` and `setData`. This will store an array of items from the database.
 12. In the `output` tag, replace its contents with `<dl>{data.map(toDetails)}</dl>`. That will render a details list.
 13. Outside and under the `WebClient` component, create the function `toDetails` that accepts an `item` and an `index`. This will return an element that renders an item from the `products` table.
 14. In `toDetails`, add a `key` variable that stores a unique value. Add `const details = <Fragment key={key}></Fragment>`. The `Fragment` component is an empty tag that can have a key. Regular empty tags cannot have keys.

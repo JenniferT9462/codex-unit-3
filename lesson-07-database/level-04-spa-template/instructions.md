@@ -27,12 +27,11 @@ An SPA template can speed up the development of complete multi-page websites.
 15. In `src/pages/`, add `ApiKey.jsx` and create the `ApiKey` component that gets an API key from the user. Use a custom hook like `useSecret` that separates logic from rendering. Let the custom hook store and restore the API key with `sessionStorage`.
 16. View the page to make sure it runs without errors.
 17. In the `ApiKey` component, use TW Elements for the form input and `submit` button. Create the custom hook `useInputTWE` to separate logic from rendering.
-18. View the page to make sure it runs without errors. The input should have an animation.
-19. In `BrowserRouter`, add a `Route` for `ApiKey` and link to it from the `Navbar`. Remove unused links from the `Navbar`.
-20. View the page to make sure it runs without errors. You should be able to switch back and forth between pages.
-21. In the `Home` component, add a `p` tag with a message that explains how to make an SPA template.
-22. View the page to make sure it runs without errors.
-23. Copy the `spa-template` folder to a location that's easier to access for creating new React projects. In the copied folder, do not include the `node_modules` folder nor any lock files like `pnpm-lock.yaml`.
+18. In `BrowserRouter`, add a `Route` for `ApiKey` and link to it from the `Navbar`. Remove unused links from the `Navbar`.
+19. View the page to make sure it runs without errors. The input should have an animation. You should be able to switch back and forth between pages.
+20. In the `Home` component, add a `p` tag with a message that explains how to make an SPA template.
+21. View the page to make sure it runs without errors.
+22. Copy the `spa-template` folder to a location that's easier to access for creating new React projects. In the copied folder, do not include the `node_modules` folder nor any lock files like `pnpm-lock.yaml`.
 
 ## More Information
 
