@@ -22,11 +22,11 @@ Custom hooks can accept parameters and return values that are useful for React c
 10. Use `useEffect` and `componentDidMount` during the mount phase to restore the `secretValue` from `sessionStorage`.
 11. View the page to make sure it runs without errors. The `secretValue` should be displayed when the page is reloaded.
 12. In the `src` folder, create the `hooks` folder, and the file `useSecret.js` that exports the function `useSecret`.
-13. In `Main.jsx`, move the `useState` code, the `useEffect` code, `componentDidMount`, and `handleSubmit` into `useSecret`.
+13. In `Main.jsx`, move the `useState` code, the `useEffect` code, `componentDidMount`, `handleSubmit`, and imports into `useSecret`.
 14. In `useSecret`, on the line after `useState` and `useEffect`, add `return [secretValue, handleSubmit]`. An array is being used to return the secret value and the handler function.
 15. In `Main`, add `useSecret();` and destructure the returned array items into `secretValue` and `handleSubmit`.
-16. View the page to make sure it runs without errors.
-17. Change the `name` (or `id`) attribute of the `input` tag.
+16. View the page to make sure it works properly and runs without errors.
+17. Change the `name` (or `id`) value of the `input` tag. Use an arbitrary name that'll break the component. Example: `sssssecretValue`
 18. View the page. It should not work properly, and it should show an error in the console.
 19. Let `useSecret` take in the parameter `secretKey`. The `secretKey` parameter will match the `name` (or `id`) attribute of the `input` tag and the key used for `sessionStorage`
 20. In `useSecret`, replace the key for `sessionStorage` with the `secretKey` variable.
@@ -36,7 +36,7 @@ Custom hooks can accept parameters and return values that are useful for React c
 24. Once again, change the `name` (or `id`) attribute of the `input` tag, then give `useSecret` the new `name` (or `id`).
 25. View the page to make sure it runs without errors.
 26. Place a `debugger` breakpoint at the beginning of `useSecret`, `componentDidMount`, and `handleSubmit`.
-27. Use the `debugger` to watch `sessionStorage`, and watch the `secretValue` stateful variable change.
+27. Use the `debugger` in `Main` to watch `sessionStorage`, and watch the `secretValue` stateful variable change.
 28. In the `main` tag, add a `p` tag that explains how give and receive values from custom hooks, and how to use bracket notation for objects.
 29. View the page to make sure it runs without errors.
 

@@ -19,26 +19,27 @@ Being able to store and access your own data programmatically will help make you
 7. Click on `Save`.
 8. Make sure the `subjects` table is selected in the side panel.
 9. Click on `Insert` → `Insert row` to add a subject.
-10. Enter a `name` and `description` for a subject. Click on `Save`. The other default settings are ok.
+10. Enter a `name` and `description` for a subject. The other default settings are ok. Click on `Save`.
 11. Insert more subjects until there are at least 5 subjects. Click on `Save`.
 12. Click on the `Connect` button at the top. Select `Direct` → select `Session pooler`.
-13. Copy the `Connection string`.
-14. In the terminal, navigate to this level folder, use `npm` to initialize a project, and set the `type` to `module`. The other default settings are ok.
+13. Copy the `Connection string` and paste it somewhere easily accessible.
+14. In the VS Code terminal, navigate to this level folder, use `npm` to initialize a project, and set the `type` to `module`. The other default settings are ok.
 15. Install these packages - `prisma@6` and `dotenv`.
 16. Initialize Prisma in the terminal - `npx prisma init`
 17. Observe that these files were generated - `prisma.config.ts`, `prisma/schema.prisma`, `.gitignore`, and `.env`.
-18. In `schema.prisma`, change the `provider` to `prisma-client-js`. This will generate a client for JavaScript.
+18. In `schema.prisma`, for `generator client`, change the `provider` to `prisma-client-js`. This will generate a client for JavaScript.
 19. In `.env`, replace the string for `DATABASE_URL` with the `Connection string` that you copied from Supabase `Session pooler`.
 20. In the connection string, replace `[YOUR-PASSWORD]` with the database password you created (or generated).
-21. Synchronize Prisma with your database - `npx prisma db pull`
+21. Synchronize Prisma with your database - `npx prisma db pull`. This will update `schema.prisma` with information about your database.
 22. Generate a client to connect to your database - `npx prisma generate`.
 23. Observe that the `generated` folder is created and contains the client, and `@prisma/client` is automatically installed and added to `package.json`.
 24. In `script.js`, import the client - `import { PrismaClient } from "./generated/prisma/client.js";`
 25. Then create a client that connects to your database - `const prisma = new PrismaClient();`
 26. Then get data from your `subjects` table - `const results = await prisma.subjects.findMany();`
 27. Use `console.log` to view the `results`.
-28. Add a `console.log` to display a message.
-29. Let the messaage explain how to create a Supabase database and how to connect to it with Prisma.
+28. Run `script.js` and make sure it runs without errors.
+29. Add a `console.log` to display a message. Let the messaage explain how to create a Supabase database and how to connect to it with Prisma.
+30. Run `script.js` and make sure it runs without errors.
 
 ## More Information
 

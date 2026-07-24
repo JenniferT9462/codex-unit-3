@@ -10,21 +10,21 @@ Joined tables provide a convenient way to view related data.
 
 ## Complete these tasks
 
-1. NOTE: This level requires `prisma-template` and `react-read` from a previous level. Complete these tasks from scratch. Do not copy/paste unless the task permits it.
+1. NOTE: This level requires `prisma-template` and `react-read` from a previous level. Complete these tasks from scratch. Do not copy/paste unless the task permits it. Code for TW Elements can be copied/pasted.
 2. In the `codex-unit-3` database in `https://supabase.com/`, create a new table called `reviews`. This will contain product reviews.
 3. Add a `stars` column of type `int2`. This will contain an integer that represents the number of stars a product has received.
 4. Add a `product_id` column of type `int8`. This will contain the ID of the product that received the stars. Add a `user_id` column of type `int8`. Default settings are ok. This will contain the ID of the user that provided the star rating.
 5. Click on `Add foreign key relation`. Let it reference the `products` table. For `public.reviews`, select `product_id`. For `public.products`, select `id`. Default settings are ok. Click on `Save`. This will join the two tables together, establishing a relationship between them, that the `product_id` in the `reviews` table refers to an `id` in the `products` table.
-6. Click again on `Add foreign key relation`. Let it reference the `users` table. For `public.reviews`, select `user_id`. For `public.users`, select `id`. Default settings are ok. Click `Save`. This will join the two tables together, establishing a relationship between them, that the `user_id` in the `reviews` table refers to an `id` in the `users` table.
+6. Click again on `Add foreign key relation`. Let it reference the `users` table. For `public.reviews`, select `user_id`. For `public.users`, select `id`. Default settings are ok. Click `Save`. This will join the two tables together, establishing a relationship between them, that the `user_id` in the `reviews` table refers to an `id` in the `users` table. Click `Save` to create the table.
 7. Prepare a review: In the `products` table, note the `id` of a product to review. In the `users` table, note the `id` of a user to associate with the review.
 8. Add a review: In the `reviews` table, `Insert` a record. For `stars`, put an integer (e.g., 5 stars). For `product_id`, put the product ID you noted. For `user_id`, put the user ID you noted. Default settings are ok. Click on `Save`. This means the user gave the product some stars.
 9. Add another review from the same user, but for a different product.
 10. Add another review, for the same product, but from a different user.
-11. Set up the Prisma web client: In your system's file explorer or file picker, copy your `prisma-template` folder from a previous level into this level folder. In the terminal, navigate to `prisma-template` and install `node_modules`. Run `npx prisma db pull` to get information about the new `reviews` table. Run `npx prisma generate` to update the Prisma client. Let `script.js` use `findMany` show all items in the `products` table.
+11. Set up the Prisma web client: In your system's file explorer or file picker, copy your `prisma-template` folder from a previous level into this level folder. In the terminal, navigate to `prisma-template` and install `node_modules`. Run `npx prisma db pull` to get information about the new `reviews` table. Run `npx prisma generate` to update the Prisma client. Let `script.js` use `findMany` to show all items in the `products` table.
 12. Run `script.js`. There will be errors because information about foreign keys are missing in `json-schema.json`.
 13. Fix the errors: Delete `web-client.js` in `prisma-template` and move `web-client.js` in this level folder to the `prisma-template`. This uses a web client that's compatible with foreign keys. Add `keepRelationScalarFields = "true"` to `schema.prisma` in the `generator jsonSchema` section. This will cause data about foreign keys to be included in `json-schema.json`. Run `npx prisma generate` to update `json-schema.json` with foreign keys.
 14. Run `script.js`. It should run without errors. Observe that information about `reviews` is not included with `products`.
-15. In `script.js`, for `findMany` options, use `{ include: { reviews: true } }`. That will join the `products` and `reviews` table.
+15. In `script.js`, for `findMany` options, use `{ include: { reviews: true } }`. That will join the `products` and `reviews` tables.
 16. Run `script.js`. Observe that information about `products` and their `reviews` are joined together. `JSON.stringfy(results, null, 2)` can be used to display information about nested objects.
 17. Update `script.js` to display the `users` table joined with the `reviews` table, then to display the `reviews` table joined with the `products` and `users` table.
 18. Run `script.js`. Observe that information about `products`, `reviews`, and `users` are joined together.
@@ -67,6 +67,8 @@ Joined tables provide a convenient way to view related data.
 
 ## Usage Tips
 
+- If NodeJs code is not running properly after installing packages with PNPM, try installing packages with NPM.
+- To switch installers (from PNPM to NPM), delete the `node_modules` folder, delete lock files, and delete any PNPM workspace files. Then install with a different installer.
 - React components can accept attributes. Example: `<MyComponent myAtrribute="myValue" />`
 - React components can access them through the `props` object. Example: `function MyComponent(props) { ... }`
 - The `props` object can be destructured in-line. Example: `function MyComponent({ myAttribute1, myAttribute2 })`

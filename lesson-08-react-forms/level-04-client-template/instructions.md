@@ -32,12 +32,13 @@ These templates will speed up development of websites that use the Prisma web cl
 20. Close the browser to reset session storage. Then open the browser and view the Web Client page. After fixing import errors, observe that the webite renders without errors.
 21. Let `DbPassword` give `WebClient` the password: In `WebClient.jsx` where `DbPassword` is rendered, add the attribute/prop `setPassword={setPassword}`. In `DbPassword.jsx`, add the parameter `{ setPassword }` to destructure the props object. When `DbPassword` uses `setPassword`, the `WebClient` component will get the `password`.
 22. In the `DbPassword` component, track the update phase with `useEffect`, `componentDidUpdate`, and `[password]` for dependencies. This will call `componentDidUpdate` whenever `password` changes. Create the function `componentDidUpdate` that uses `setPassword` to give `WebClient` the password.
-23. In `WebClient.jsx`, add `const [data, setData] = useState([])`. In the `return`, add and `output` tag with the content `<dl>{data.map(toDetails)}</dl>`. Create the callback function `toDetails` to render a data `item` with `key`, `Fragment`, `dt` and `dd`.
-24. View the website. After fixing any errors, observe that the Web Client page renders.
-25. Add `debugger` breakpoints to `WebClient`, `usePrisma`, `DbPassword`, and `componentDidUpdate`. Observe how `prisma` and `password` change, and how information flows between components and custom hooks.
-26. In the `Home` component, add a `p` tag that explains how to create templates for the Prisma Client in NodeJs and for the Prisma web client in React that separates logic from rendering.
-27. View the website pages and make sure they run without errors.
-28. Copy the `prisma-template` and `client-template` folders to a location that's easier to access for creating new projects. In the copied folders, do not include the `node_modules` folder nor any lock files like `pnpm-lock.yaml` or `package-lock.json`.
+23. View the website and make sure it renders without errors.
+24. In `WebClient.jsx`, add `const [data, setData] = useState([])`. In the `return`, add an `output` tag with the content `<dl>{data.map(toDetails)}</dl>`. Create the callback function `toDetails` to render a data `item` with `key`, `Fragment`, `dt` and `dd`.
+25. View the website. After fixing any errors, observe that the Web Client page renders.
+26. Add `debugger` breakpoints to `WebClient`, `usePrisma`, `DbPassword`, and `componentDidUpdate`. Observe how `prisma` and `password` change, and how information flows between components and custom hooks.
+27. In the `Home` component, add a `p` tag that explains how to create templates for the Prisma Client in NodeJs and for the Prisma web client in React that separates logic from rendering.
+28. View the website pages and make sure they run without errors.
+29. Copy the `prisma-template` and `client-template` folders to a location that's easier to access for creating new projects. In the copied folders, do not include the `node_modules` folder nor any lock files like `pnpm-lock.yaml` or `package-lock.json`.
 
 ## More Information
 
