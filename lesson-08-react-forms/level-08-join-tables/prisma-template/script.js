@@ -10,6 +10,8 @@ const allProducts = await prisma.products.findMany({
 console.log("\n----------PRODUCTS w/ Reviews---------\n");
 console.log(JSON.stringify(allProducts, null, 2));
 
+
+
 // USERS w/REVIEWS
 const usersWReviews = await prisma.users.findMany({
   include: { reviews: true },
